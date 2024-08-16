@@ -1,0 +1,72 @@
+.container {
+  width: 100%;
+
+  h4 {
+    color: #333;
+  }
+
+  .tabelaContas {
+    width: 100%;
+
+    thead th {
+      font-weight: 400;
+      text-transform: uppercase;
+    }
+
+    tbody tr {
+      height: 50px;
+
+      td {
+        padding-left: 16px;
+
+        &:nth-of-type(4),
+        &:nth-of-type(5) {
+          text-align: center;
+        }
+      }
+      &:nth-of-type(odd) {
+        background: #ededed;
+      }
+      &:nth-of-type(even),
+      &:last-of-type {
+        background: #fff;
+      }
+    }
+
+    td[colspan="5"] {
+      text-align: center;
+      padding: 10px;
+    }
+
+    #addNovaConta {
+      padding: 8px;
+      background: #5f9cec;
+      border: 1px solid #5f9cec;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      transition: 0.5s;
+
+      &:hover {
+        border-color: #5f9cec;
+        background: none;
+        color: #5f9cec;
+      }
+    }
+
+    .statusConta {
+      padding: 8px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+
+      &.vencido {
+        background: #d94048 !important;
+      }
+    }
+
+    .statusConta .statusConta.aVenc {
+      background: #f4c247;
+    }
+  }
+}

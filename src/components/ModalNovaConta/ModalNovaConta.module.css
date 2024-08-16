@@ -1,0 +1,118 @@
+.backModal {
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal {
+  background: #fff;
+  width: 400px;
+
+  display: flex;
+  flex-direction: column;
+
+  .titleModal {
+    background: #5f9cec;
+    text-align: center;
+    font-weight: 400;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+
+    h3 {
+      flex: 1;
+      padding: 14px;
+      font-weight: 400;
+    }
+
+    button {
+      padding: 14px;
+      background: none;
+      border: none;
+      outline: none;
+      color: #f5f5f5;
+      cursor: pointer;
+
+      &:hover {
+        background: #558cd3;
+      }
+    }
+  }
+
+  /* Content Modal */
+  .content {
+    padding: 12px;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      input {
+        padding: 8px;
+        margin: 8px;
+        flex: 1;
+
+        font-weight: 400;
+        font-size: 1em;
+      }
+
+      .camposVencimento {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        input {
+          flex: 1;
+        }
+      }
+    }
+
+    .legenda {
+      color: #949494;
+      font-weight: 300;
+    }
+  }
+
+  /* Footer Modal */
+  .footer {
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    gap: 12px;
+
+    button {
+      padding: 12px;
+      background: none;
+      border: none;
+      cursor: pointer;
+
+      &.btnCancel {
+        color: #cd201f;
+
+        &:hover {
+          background: #ededed;
+        }
+      }
+      &.btnSave {
+        background: #5f9cec;
+        border-radius: 12px;
+        border: 1px solid transparent;
+        color: #fff;
+
+        &:hover {
+          background: transparent;
+          border: 1px solid #5f9cec;
+          color: #5f9cec;
+        }
+      }
+    }
+  }
+}
