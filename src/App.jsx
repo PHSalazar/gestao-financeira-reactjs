@@ -24,8 +24,16 @@ function App() {
     }
   };
 
+  const pagarConta = (contaTitulo) => {
+    setContas((contasAnteriores) => 
+      contasAnteriores.map((conta) => 
+      conta.tituloConta === contaTitulo ? {...conta, statusConta: true} : conta
+      )
+    );
+  }
+
   return (
-    <UserContext.Provider value={{ contas, setContas }}>
+    <UserContext.Provider value={{ contas, setContas, pagarConta }}>
       <AppRoutes />
     </UserContext.Provider>
   );

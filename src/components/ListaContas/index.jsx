@@ -5,17 +5,33 @@ import UserContext from "../../contexts/UserContext";
 
 const index = () => {
   const [visibilityModal, setVisibilityModal] = useState(false);
-  const { contas } = useContext(UserContext);
+  const { contas, pagarConta } = useContext(UserContext);
 
   const toggleVisibilityModal = () => {
     setVisibilityModal(!visibilityModal);
   };
 
-  const checkDataVencimento = (dataVencimento) => {
+  const checkStatus = (statusConta, dataVencimento) => {
+    if (statusConta) {
+      return style.pronto;
+    }
+
+    
     const dataAtual = new Date().getDate();
     const status = dataAtual > dataVencimento;
-    return status;
+    let retorno;
+
+    if (status) {
+      retorno = style.vencido;
+    }else{
+      retorno = style.aVenc;
+    }
+    return retorno;
   };
+
+  const handlePagarConta = (contaTitulo) => {
+    pagarConta(contaTitulo);
+  }
 
   return (
     <div className={style.container}>
@@ -48,14 +64,14 @@ const index = () => {
                   <td>
                     <span
                       className={`${style.statusConta} ${
-                        checkDataVencimento(vencConta) ? "vencido" : "aVenc"
+                        checkStatus(statusConta, vencConta)
                       }`}
                     >
-                      {/* {statusConta ? "PRONTO" : "Pendente"} */}
-                      {checkDataVencimento(vencConta) ? "Vencido" : "A vencer"}
                     </span>
                   </td>
-                  <td>x</td>
+                  <td>
+                    <button onClick={() => handlePagarConta(tituloConta)}>pagar</button>
+                  </td>
                 </tr>
               )
             )

@@ -2,7 +2,9 @@
   width: 100%;
 
   h4 {
-    color: #333;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
   }
 
   .tabelaContas {
@@ -62,11 +64,27 @@
 
       &.vencido {
         background: #d94048 !important;
+        color: #fff;
+        &::before {
+          content: 'Vencido';
+        }
+      }
+
+      &.aVenc {
+        background: #f4c247;
+        &::before {
+          content: 'A vencer';
+        }
+      }
+
+      &.pronto {
+        background: #32CD32;
+        &::before {
+          content: 'Pago';
+        }
       }
     }
 
-    .statusConta .statusConta.aVenc {
-      background: #f4c247;
-    }
+    
   }
 }

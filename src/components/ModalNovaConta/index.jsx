@@ -2,24 +2,27 @@ import { useContext, useRef, useState } from "react";
 import styles from "./ModalNovaConta.module.css";
 import UserContext from "../../contexts/UserContext";
 
+
 const index = ({ hideModal }) => {
   const inputTitulo = useRef();
   const inputValor = useRef();
   const inputVencimento = useRef();
   const formNovaConta = useRef();
 
-  // const { contas } = useContext(UserContext);
   const { contas, setContas } = useContext(UserContext);
 
+
   const submitFormNovaConta = () => {
-    event.preventDefault();
+    // event.preventDefault();
+
+
     const novaConta = {
       tituloConta: inputTitulo.current.value,
       valorConta: new Intl.NumberFormat("pt-br", {
         style: "currency",
         currency: "BRL",
       }).format(inputValor.current.value),
-      vencConta: inputVencimento.current.value,
+      vencConta: parseInt(inputVencimento.current.value),
       statusConta: false,
     };
 
@@ -42,14 +45,17 @@ const index = ({ hideModal }) => {
               type="text"
               placeholder="Título da Conta"
               ref={inputTitulo}
+              required
             />
             <input
               type="number"
               name=""
               id=""
-              step={1}
+              min={0.01}
+              step={0.01}
               placeholder="Valor aproximado"
               ref={inputValor}
+              required
             />
             <div className={styles.camposVencimento}>
               <input
@@ -61,23 +67,28 @@ const index = ({ hideModal }) => {
                 step={1}
                 placeholder="Data de Vencimento Mensal"
                 ref={inputVencimento}
+                required
               />
 
               <label htmlFor="" className={styles.legenda}>
                 de cada mês
               </label>
             </div>
+
+            <section className={styles.footer}>
+              <button className={styles.btnCancel} onClick={hideModal}>
+                Cancelar
+              </button>
+
+              <button className={styles.btnSave} type="submit">
+                Adicionar
+              </button>
+            </section>
+            
           </form>
         </section>
 
-        <section className={styles.footer}>
-          <button className={styles.btnCancel} onClick={hideModal}>
-            Cancelar
-          </button>
-          <button className={styles.btnSave} onClick={submitFormNovaConta}>
-            Adicionar
-          </button>
-        </section>
+        
       </article>
     </section>
   );
