@@ -45,7 +45,7 @@ const ModalNovaConta = ({ hideModal }) => {
           </button>
         </section>
         <section className={styles.content}>
-          <form onSubmit={submitFormNovaConta} ref={formNovaConta}>
+          <form onSubmit={submitFormNovaConta} ref={formNovaConta} onKeyDown={(event) => {event.key === 'Enter' && event.preventDefault()}}>
             <input
               type="text"
               placeholder="Título da Conta"
