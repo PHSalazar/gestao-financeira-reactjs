@@ -8,13 +8,12 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background: #0e0e0e;
-  color: #fff;
+  background: #edf1f4;
 }
 
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  color: #fff;
+  color: #222;
 }

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import AppRoutes from "./Routes/Router";
 import UserContext from "./contexts/UserContext";
+import Sidebar from "./components/Sidebar/Sidebar";
+
+import style from './App.module.css'
 
 function App() {
   const [contas, setContasState] = useState([]);
@@ -27,14 +30,20 @@ function App() {
   const pagarConta = (contaTitulo) => {
     setContas((contasAnteriores) => 
       contasAnteriores.map((conta) => 
-      conta.tituloConta === contaTitulo ? {...conta, statusConta: true} : conta
+      conta.tituloConta === contaTitulo ? {...conta, statusConta: !conta.statusConta} : conta
       )
     );
   }
 
   return (
     <UserContext.Provider value={{ contas, setContas, pagarConta }}>
-      <AppRoutes />
+      <section className={style.wrapper}>
+      <Sidebar />
+
+        <section className={style.container}>
+        <AppRoutes />
+        </section>
+      </section>
     </UserContext.Provider>
   );
 }

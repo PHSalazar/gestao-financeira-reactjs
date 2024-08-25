@@ -1,9 +1,9 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useRef } from "react";
 import styles from "./ModalNovaConta.module.css";
 import UserContext from "../../contexts/UserContext";
 
 
-const index = ({ hideModal }) => {
+const ModalNovaConta = ({ hideModal }) => {
   const inputTitulo = useRef();
   const inputValor = useRef();
   const inputVencimento = useRef();
@@ -12,12 +12,17 @@ const index = ({ hideModal }) => {
   const { contas, setContas } = useContext(UserContext);
 
 
-  const submitFormNovaConta = () => {
-    // event.preventDefault();
+  const upperNomeConta = (nomeConta) => {
+    let novoNomeConta = nomeConta.substring(0,1).toUpperCase() + nomeConta.substring(1).toLowerCase();
 
+    return novoNomeConta;
+  }
+  const submitFormNovaConta = (event) => {
 
+    event.preventDefault();
+    
     const novaConta = {
-      tituloConta: inputTitulo.current.value,
+      tituloConta: upperNomeConta(inputTitulo.current.value),
       valorConta: new Intl.NumberFormat("pt-br", {
         style: "currency",
         currency: "BRL",
@@ -40,12 +45,13 @@ const index = ({ hideModal }) => {
           </button>
         </section>
         <section className={styles.content}>
-          <form action="/" onSubmit={submitFormNovaConta} ref={formNovaConta}>
+          <form onSubmit={submitFormNovaConta} ref={formNovaConta}>
             <input
               type="text"
               placeholder="Título da Conta"
               ref={inputTitulo}
               required
+              autoFocus
             />
             <input
               type="number"
@@ -94,4 +100,4 @@ const index = ({ hideModal }) => {
   );
 };
 
-export default index;
+export default ModalNovaConta;

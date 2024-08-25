@@ -1,0 +1,45 @@
+
+.card {
+    width: 200px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+    justify-content: center;
+    padding: 14px;
+    margin: 20px 0;
+
+    h1 {
+        color: #fff;
+        font-weight: 400;
+        font-size: 1.2rem;
+    }
+    span {
+        color: #fff;
+        font-weight: 100;
+        font-size: 0.8rem;
+    }
+}
+
+.green {
+    background: #00cb8d;
+}
+
+.gray {
+    background: #5e6f77;
+}
+
+.red {
+    background: #ff626e;
+}
+
+.blue {
+    background: #005cc8;
+}
+
+
+@media (max-width: 600px) {
+    .card {
+        margin: 10px;
+    }
+}

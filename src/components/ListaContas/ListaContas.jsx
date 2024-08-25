@@ -1,15 +1,11 @@
 import style from "./ListaConta.module.css";
-import ModalNovaConta from "../ModalNovaConta";
-import { useState, useEffect, useContext } from "react";
+import { useContext } from "react";
 import UserContext from "../../contexts/UserContext";
 
-const index = () => {
-  const [visibilityModal, setVisibilityModal] = useState(false);
+const ListaContas = () => {
   const { contas, pagarConta } = useContext(UserContext);
 
-  const toggleVisibilityModal = () => {
-    setVisibilityModal(!visibilityModal);
-  };
+  
 
   const checkStatus = (statusConta, dataVencimento) => {
     if (statusConta) {
@@ -35,13 +31,15 @@ const index = () => {
 
   return (
     <div className={style.container}>
-      <h4>Lista de Contas a Pagar</h4>
-
       <table className={style.tabelaContas}>
         <thead>
           <tr>
+           <th colSpan={6}>Controle de Contas</th>
+          </tr>
+          <tr>
+            <th>#</th>
             <th>Conta</th>
-            <th>Vencimento</th>
+            <th>Venc.</th>
             <th>Valor</th>
             <th>Status</th>
             <th>Ações</th>
@@ -50,12 +48,15 @@ const index = () => {
         <tbody>
           {contas.length === 0 ? (
             <tr>
-              <td colSpan={5}>Por favor, adicione alguma conta à lista.</td>
+              <td colSpan={6}>Por favor, adicione alguma conta à lista.</td>
             </tr>
           ) : (
             contas.map(
               ({ tituloConta, vencConta, valorConta, statusConta }) => (
                 <tr key={tituloConta}>
+                  <td>
+                    <input type="checkbox" name="" id="" />
+                  </td>
                   <td>{tituloConta}</td>
                   <td>
                     Dia <b>{vencConta}</b> de cada mês
@@ -76,22 +77,12 @@ const index = () => {
               )
             )
           )}
-
-          <tr>
-            <td colSpan={5}>
-              <button id={style.addNovaConta} onClick={toggleVisibilityModal}>
-                Adicionar nova conta
-              </button>
-            </td>
-          </tr>
         </tbody>
       </table>
 
-      {visibilityModal && (
-        <ModalNovaConta hideModal={() => setVisibilityModal(false)} />
-      )}
+
     </div>
   );
 };
 
-export default index;
+export default ListaContas;

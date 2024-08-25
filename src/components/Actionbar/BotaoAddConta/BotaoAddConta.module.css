@@ -1,0 +1,15 @@
+#addNovaConta {
+    padding: 8px;
+    background: #5f9cec;
+    border: 1px solid #5f9cec;
+    border-radius: 8px;
+    color: #fff;
+    cursor: pointer;
+    transition: 0.5s;
+
+    &:hover {
+      border-color: #5f9cec;
+      background: none;
+      color: #5f9cec;
+    }
+  }

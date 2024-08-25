@@ -1,0 +1,13 @@
+.sidebar {
+    width: 300px;
+    height: 100vh;
+
+    background: #fafcfc;
+    border-left: 1px solid #ededed;
+}
+
+@media (max-width: 600px) {
+    .sidebar {
+        display: none;
+    }
+}
