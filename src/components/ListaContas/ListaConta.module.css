@@ -41,6 +41,30 @@
         &:nth-of-type(5) {
           text-align: center;
         }
+
+        &:last-of-type {
+          text-align: center;
+          button {
+            background: none;
+            outline: none;
+            border: none;
+            
+            margin: 4px;
+
+            cursor: pointer;
+
+            opacity: 1;
+            transition: 0.6s;
+
+            &:hover {
+              opacity: .7;
+            }
+
+            &[disabled] {
+              opacity: .25;
+            }
+          } 
+        }
       }
       &:nth-of-type(odd) {
         background: #fafcfe;

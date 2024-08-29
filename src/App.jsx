@@ -7,6 +7,7 @@ import style from './App.module.css'
 
 function App() {
   const [contas, setContasState] = useState([]);
+  const [contasSelecionadas, setContasSelecionadas] = useState([]);
 
   const setContas = (contaNova) => {
     if (typeof contaNova === "function") {
@@ -30,13 +31,24 @@ function App() {
   const pagarConta = (contaTitulo) => {
     setContas((contasAnteriores) => 
       contasAnteriores.map((conta) => 
-      conta.tituloConta === contaTitulo ? {...conta, statusConta: !conta.statusConta} : conta
+      conta.tituloConta === contaTitulo ? {...conta, statusConta: true} : conta
       )
     );
+    setContasSelecionadas([]);
+  }
+
+
+  const selecinaConta = (conta) => {
+    setContasSelecionadas([...contasSelecionadas, conta]);
+  }
+
+  const tirarSelecaoConta = (conta) => {
+    const contas = contasSelecionadas.filter((contaObj) => contaObj != conta)
+    setContasSelecionadas(contas);
   }
 
   return (
-    <UserContext.Provider value={{ contas, setContas, pagarConta }}>
+    <UserContext.Provider value={{ contas, setContas, pagarConta, contasSelecionadas, selecinaConta, tirarSelecaoConta }}>
       <section className={style.wrapper}>
       <Sidebar />
 

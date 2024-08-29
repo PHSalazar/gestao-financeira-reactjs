@@ -1,10 +1,11 @@
 import style from "./ListaConta.module.css";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import UserContext from "../../contexts/UserContext";
+import Invoice_okIco from '../../assets/invoice_ok.svg';
+import RemoveIco from '../../assets/remove.svg';
 
 const ListaContas = () => {
-  const { contas, pagarConta } = useContext(UserContext);
-
+  const { contas, pagarConta, selecinaConta, tirarSelecaoConta } = useContext(UserContext);
   
 
   const checkStatus = (statusConta, dataVencimento) => {
@@ -27,6 +28,10 @@ const ListaContas = () => {
 
   const handlePagarConta = (contaTitulo) => {
     pagarConta(contaTitulo);
+  }
+
+  const handleSetContaSelecionada = (event, conta) => {
+    (event.target.checked) ? selecinaConta(conta) : tirarSelecaoConta(conta);
   }
 
   return (
@@ -52,10 +57,13 @@ const ListaContas = () => {
             </tr>
           ) : (
             contas.map(
-              ({ tituloConta, vencConta, valorConta, statusConta }) => (
+              (conta) => {
+               const { tituloConta, vencConta, valorConta, statusConta } = conta;
+
+                return (
                 <tr key={tituloConta}>
                   <td>
-                    <input type="checkbox" name="" id="" />
+                    <input type="checkbox" name="" id="" onChange={(event) => handleSetContaSelecionada(event, conta)}/>
                   </td>
                   <td>{tituloConta}</td>
                   <td>
@@ -71,10 +79,16 @@ const ListaContas = () => {
                     </span>
                   </td>
                   <td>
-                    <button onClick={() => handlePagarConta(tituloConta)}>pagar</button>
+                    <button onClick={() => handlePagarConta(tituloConta)} disabled={statusConta}>
+                      <img src={Invoice_okIco} width={18} height={18} title={tituloConta ? `${tituloConta} já está PAGO.` : `Pagar ${tituloConta}`} />
+                    </button>
+                    <button onClick={() => handlePagarConta(tituloConta)} >
+                      <img src={RemoveIco} width={18} height={18} title={`Remover ${tituloConta}`} />
+                    </button>
                   </td>
                 </tr>
-              )
+                )
+              }
             )
           )}
         </tbody>
