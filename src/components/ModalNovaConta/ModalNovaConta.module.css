@@ -115,4 +115,10 @@
       }
     }
   }
+
+  .messageError {
+    color: #d94048;
+    font-size: 13px;
+    text-align: left;
+  }
 }

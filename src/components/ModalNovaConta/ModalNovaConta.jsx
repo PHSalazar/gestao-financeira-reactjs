@@ -1,7 +1,6 @@
-import { useContext, useRef } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import styles from "./ModalNovaConta.module.css";
 import UserContext from "../../contexts/UserContext";
-
 
 const ModalNovaConta = ({ hideModal }) => {
   const inputTitulo = useRef();
@@ -10,17 +9,34 @@ const ModalNovaConta = ({ hideModal }) => {
   const formNovaConta = useRef();
 
   const { contas, setContas } = useContext(UserContext);
-
+  const [messageModal, setMessageModal] = useState("");
 
   const upperNomeConta = (nomeConta) => {
-    let novoNomeConta = nomeConta.substring(0,1).toUpperCase() + nomeConta.substring(1).toLowerCase();
+    let novoNomeConta =
+      nomeConta.substring(0, 1).toUpperCase() +
+      nomeConta.substring(1).toLowerCase();
 
     return novoNomeConta;
-  }
-  const submitFormNovaConta = (event) => {
+  };
 
+  const submitFormNovaConta = (event) => {
     event.preventDefault();
-    
+
+    const verificarConta = contas.some(
+      (conta) =>
+        conta.tituloConta.toLowerCase() ===
+        inputTitulo.current.value.toLowerCase()
+    );
+    if (verificarConta) {
+      setMessageModal(
+        "Já existe uma conta com esse título. Tente outro título."
+      );
+      setTimeout(() => {
+        setMessageModal("");
+      }, 4000);
+      return;
+    }
+
     const novaConta = {
       tituloConta: upperNomeConta(inputTitulo.current.value),
       valorConta: new Intl.NumberFormat("pt-br", {
@@ -45,7 +61,13 @@ const ModalNovaConta = ({ hideModal }) => {
           </button>
         </section>
         <section className={styles.content}>
-          <form onSubmit={submitFormNovaConta} ref={formNovaConta} onKeyDown={(event) => {event.key === 'Enter' && event.preventDefault()}}>
+          <form
+            onSubmit={submitFormNovaConta}
+            ref={formNovaConta}
+            onKeyDown={(event) => {
+              event.key === "Enter" && event.preventDefault();
+            }}
+          >
             <input
               type="text"
               placeholder="Título da Conta"
@@ -81,6 +103,10 @@ const ModalNovaConta = ({ hideModal }) => {
               </label>
             </div>
 
+            <span id="message" className={styles.messageError}>
+              {messageModal}
+            </span>
+
             <section className={styles.footer}>
               <button className={styles.btnCancel} onClick={hideModal}>
                 Cancelar
@@ -90,11 +116,8 @@ const ModalNovaConta = ({ hideModal }) => {
                 Adicionar
               </button>
             </section>
-            
           </form>
         </section>
-
-        
       </article>
     </section>
   );
