@@ -5,8 +5,13 @@ import Invoice_okIco from "../../assets/invoice_ok.svg";
 import RemoveIco from "../../assets/remove.svg";
 
 const ListaContas = () => {
-  const { contas, pagarConta, removerConta, selecinaConta, tirarSelecaoConta } =
-    useContext(UserContext);
+  const {
+    contas,
+    pagarConta,
+    removerContas,
+    selecinaConta,
+    tirarSelecaoConta,
+  } = useContext(UserContext);
 
   const checkStatus = (statusConta, dataVencimento) => {
     if (statusConta) {
@@ -30,7 +35,7 @@ const ListaContas = () => {
   };
 
   const handleRemoverConta = (contaTitulo) => {
-    removerConta(contaTitulo);
+    removerContas([contaTitulo]);
   };
 
   const handleSetContaSelecionada = (event, conta) => {
