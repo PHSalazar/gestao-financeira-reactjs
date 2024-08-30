@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AppRoutes from "./Routes/Router";
 import UserContext from "./contexts/UserContext";
 import Sidebar from "./components/Sidebar/Sidebar";
@@ -8,6 +8,17 @@ import style from "./App.module.css";
 function App() {
   const [contas, setContasState] = useState([]);
   const [contasSelecionadas, setContasSelecionadas] = useState([]);
+  const [total, setTotal] = useState(0);
+  const [totalPagas, setTotalPagas] = useState(0);
+  const [totalAPagar, setTotalAPagar] = useState(0);
+  const [totalVencidas, setTotalVencidas] = useState(0);
+
+  const convertToNumber = (number) => {
+    const valorTotal = parseFloat(
+      number.replace(/[^\d,.-]/g, "").replace(",", ".")
+    );
+    return valorTotal;
+  };
 
   const setContas = (contaNova) => {
     if (typeof contaNova === "function") {
@@ -44,6 +55,7 @@ function App() {
       (conta) => !contasParaRemover.includes(conta)
     );
     setContas(contasRemovidas);
+
     setContasSelecionadas([]);
   };
 
@@ -56,6 +68,62 @@ function App() {
     setContasSelecionadas(contas);
   };
 
+  const calcContasPagas = () => {
+    const contasPagas = contas.filter((conta) => conta.statusConta);
+    if (contasPagas.length > 0) {
+      setTotalPagas(
+        contasPagas.reduce((a, obj) => {
+          return a + convertToNumber(obj.valorConta);
+        }, 0)
+      );
+    } else {
+      setTotalPagas(0);
+    }
+  };
+
+  const calcContasAPagar = () => {
+    const contasAPagar = contas.filter((conta) => !conta.statusConta);
+    if (contasAPagar.length > 0) {
+      setTotalAPagar(
+        contasAPagar.reduce((a, obj) => {
+          return a + convertToNumber(obj.valorConta);
+        }, 0)
+      );
+    } else {
+      setTotalAPagar(0);
+    }
+  };
+
+  const calcContasVencidas = () => {
+    const contasVencidas = contas.filter(
+      (conta) => conta.vencConta < new Date().getDate() && !conta.statusConta
+    );
+    if (contasVencidas.length > 0) {
+      setTotalVencidas(
+        contasVencidas.reduce((a, obj) => {
+          return a + convertToNumber(obj.valorConta);
+        }, 0)
+      );
+    } else {
+      setTotalVencidas(0);
+    }
+  };
+
+  const calcTotalContas = () => {
+    setTotal(
+      contas.reduce((a, obj) => {
+        return a + convertToNumber(obj.valorConta);
+      }, 0)
+    );
+  };
+
+  useEffect(() => {
+    calcTotalContas();
+    calcContasPagas();
+    calcContasAPagar();
+    calcContasVencidas();
+  }, [contas]);
+
   return (
     <UserContext.Provider
       value={{
@@ -66,6 +134,10 @@ function App() {
         contasSelecionadas,
         selecinaConta,
         tirarSelecaoConta,
+        total,
+        totalPagas,
+        totalAPagar,
+        totalVencidas,
       }}
     >
       <section className={style.wrapper}>
