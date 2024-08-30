@@ -36,4 +36,4 @@ Para utilizar esse projeto, basta realizar o clone desse repositório e instalar
 
 ### Versão Mobile
 
-![App Screenshot](src/assets/Screenshots/screen_mobile.pnh)
+![App Screenshot](src/assets/Screenshots/screen_mobile.png)
