@@ -17,7 +17,10 @@ function App() {
 
   const convertToNumber = (number) => {
     const valorTotal = parseFloat(
-      number.replace(/[^\d,.-]/g, "").replace(",", ".")
+      number
+        .replace(/[^\d,.-]/g, "")
+        .replace(/\./g, "")
+        .replace(",", ".")
     );
     return valorTotal;
   };
