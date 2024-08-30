@@ -1,13 +1,62 @@
 .sidebar {
-    width: 300px;
-    height: 100vh;
+  width: 300px;
+  height: 100vh;
 
-    background: #fafcfc;
-    border-left: 1px solid #ededed;
+  background: #fafcfc;
+  border-left: 1px solid #ededed;
+
+  padding: 20px;
+
+  font-family: "Poppins", sans-serif;
+  .headerSidebar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    margin-bottom: 20px;
+
+    border-bottom: 1px solid rgba(94, 111, 119, 0.2);
+  }
+  .imgProfile {
+    width: 40px;
+    height: 40px;
+  }
+  .headerText {
+    line-height: 16px;
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+  }
+  .headerUsername {
+    font-weight: 500;
+  }
+  .headerLinkPreferences {
+    text-decoration: none;
+    font-size: 0.74em;
+    color: #5e6f77;
+    font-style: italic;
+    transition: 0.3s;
+
+    &:hover {
+      color: #5f9cec;
+    }
+
+    &::after {
+      content: "►";
+      margin-left: 20px;
+    }
+  }
+
+  /* Menu */
+  .sidebarMenu {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 600px) {
-    .sidebar {
-        display: none;
-    }
+  .sidebar {
+    display: none;
+  }
 }

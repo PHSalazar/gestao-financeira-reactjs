@@ -3,6 +3,8 @@ import AppRoutes from "./Routes/Router";
 import UserContext from "./contexts/UserContext";
 import Sidebar from "./components/Sidebar/Sidebar";
 
+import { BrowserRouter as Router } from "react-router-dom";
+
 import style from "./App.module.css";
 
 function App() {
@@ -125,29 +127,31 @@ function App() {
   }, [contas]);
 
   return (
-    <UserContext.Provider
-      value={{
-        contas,
-        setContas,
-        pagarConta,
-        removerContas,
-        contasSelecionadas,
-        selecinaConta,
-        tirarSelecaoConta,
-        total,
-        totalPagas,
-        totalAPagar,
-        totalVencidas,
-      }}
-    >
-      <section className={style.wrapper}>
-        <Sidebar />
+    <Router>
+      <UserContext.Provider
+        value={{
+          contas,
+          setContas,
+          pagarConta,
+          removerContas,
+          contasSelecionadas,
+          selecinaConta,
+          tirarSelecaoConta,
+          total,
+          totalPagas,
+          totalAPagar,
+          totalVencidas,
+        }}
+      >
+        <section className={style.wrapper}>
+          <Sidebar />
 
-        <section className={style.container}>
-          <AppRoutes />
+          <section className={style.container}>
+            <AppRoutes />
+          </section>
         </section>
-      </section>
-    </UserContext.Provider>
+      </UserContext.Provider>
+    </Router>
   );
 }
 
