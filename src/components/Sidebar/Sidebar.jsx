@@ -11,12 +11,12 @@ const Sidebar = () => {
   const [linksMenu] = useState([
     {
       icon: iconMenuHome,
-      link: "/",
+      link: "/gestao-financeira-reactjs/",
       text: "Início",
     },
     {
       icon: iconMenuGraph,
-      link: "/relatorios",
+      link: "gestao-financeira-reactjs/relatorios",
       text: "Relatórios [Em Breve]",
     },
   ]);
