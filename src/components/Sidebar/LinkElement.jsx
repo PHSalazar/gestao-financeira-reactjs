@@ -4,7 +4,10 @@ import style from "./LinkElement.module.css";
 export const LinkElement = ({ text, link, icon }) => {
   return (
     <>
-      <Link to={link} className={style.LinkElement}>
+      <Link
+        to={`/gestao-financeira-reactjs/${link}`}
+        className={style.LinkElement}
+      >
         <img
           src={icon}
           alt={`Ícone de Menu para ${text}`}

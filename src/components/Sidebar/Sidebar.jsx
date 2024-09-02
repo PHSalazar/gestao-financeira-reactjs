@@ -33,7 +33,10 @@ const Sidebar = () => {
         </figure>
         <section className={style.headerText}>
           <h5 className={style.headerUsername}>Administrador</h5>
-          <Link to="/" className={style.headerLinkPreferences}>
+          <Link
+            to="/gestao-financeira-reactjs/"
+            className={style.headerLinkPreferences}
+          >
             Preferências
           </Link>
         </section>

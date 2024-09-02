@@ -5,8 +5,11 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 const AppRoutes = () => {
   return (
     <Routes>
-      <Route path="/" element={<Main />}></Route>
-      <Route path="/relatorios" element={<Relatorio />}></Route>
+      <Route path="/gestao-financeira-reactjs/" element={<Main />}></Route>
+      <Route
+        path="/gestao-financeira-reactjs/relatorios"
+        element={<Relatorio />}
+      ></Route>
     </Routes>
   );
 };
