@@ -1,0 +1,17 @@
+.container {
+  overflow-y: auto;
+  margin: 32px;
+  padding: 10px;
+  position: relative;
+
+  background: #fff;
+}
+.title {
+  color: rgba(94, 111, 119, 0.7);
+  font-size: larger;
+}
+
+.message {
+  color: rgba(94, 111, 119, 0.7);
+  padding: 10px;
+}

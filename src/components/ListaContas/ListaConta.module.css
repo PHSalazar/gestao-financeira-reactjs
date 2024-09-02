@@ -96,7 +96,6 @@
         background: #f4c247;
         &::before {
           content: "A vencer";
-          display: block;
         }
       }
 
