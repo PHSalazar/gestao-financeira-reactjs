@@ -1,36 +1,86 @@
-import { useContext } from "react";
 import {
-  Page,
-  Text,
-  View,
   Document,
+  Page,
+  View,
+  Text,
   StyleSheet,
-  BlobProvider,
+  Image,
 } from "@react-pdf/renderer";
-import UserContext from "../../contexts/UserContext";
-
-import Invoice_okIco from "../../assets/invoice_ok.svg";
-import Invoice_NokIco from "../../assets/invoice_Nok.svg";
+import React from "react";
+import Invoice_okIco from "../../assets/invoice_ok.png";
+import Invoice_NokIco from "../../assets/invoice_Nok.png";
 
 const styles = StyleSheet.create({
   page: {
     display: "flex",
     flexDirection: "column",
     backgroundColor: "#fff",
-    width: "600px",
+    padding: 20,
+    alignContent: "flex-start",
   },
   section: {
     margin: 10,
     padding: 10,
-    flexGrow: 1,
   },
-  tabela: {},
+  cardGreen: {
+    width: "200px",
+    height: "70px",
+    display: "flex",
+    flexDirection: "column",
+    aligItems: "end",
+    justifyContent: "center",
+    padding: "14px",
+    margin: "20px",
+    borderRadius: "8px",
+    backgroundColor: "#00cb8d",
+  },
+  cardGray: {
+    width: "200px",
+    height: "70px",
+    display: "flex",
+    flexDirection: "column",
+    aligItems: "end",
+    justifyContent: "center",
+    padding: "14px",
+    margin: "20px 0",
+    borderRadius: "8px",
+    backgroundColor: "#5e6f77",
+  },
+  cardRed: {
+    width: "200px",
+    height: "70px",
+    display: "flex",
+    flexDirection: "column",
+    aligItems: "end",
+    justifyContent: "center",
+    padding: "14px",
+    margin: "20px 0",
+    borderRadius: "8px",
+    backgroundColor: "#ff626e",
+  },
+  ok: {
+    color: "#00cb8d",
+    paddingRight: "5px",
+  },
+  nok: {
+    color: "#5e6f77",
+    paddingRight: "5px",
+  },
 });
+const formatCurrency = (number) => {
+  return new Intl.NumberFormat("pt-br", {
+    style: "currency",
+    currency: "BRL",
+  }).format(number);
+};
 
-const MyDocument = () => {
-  const { contas, setContas, total, totalPagas, totalAPagar, totalVencidas } =
-    useContext(UserContext);
-
+const MyDocument = ({
+  contas,
+  total,
+  totalPagas,
+  totalAPagar,
+  totalVencidas,
+}) => {
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -41,158 +91,79 @@ const MyDocument = () => {
             Gestor de Contas a Pagar
           </Text>
         </View>
-        <View style={{ display: "flex" }}>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "130px",
-              height: "130px",
-              border: "1px solid #5e6f77",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "10px",
-              borderRadius: "10px",
-            }}
-          >
-            <Text style={{ fontWeight: "bold" }}>Valor Total</Text>
-            <Text>R$ {total}</Text>
+
+        <View style={{ display: "flex", flexDirection: "row" }}>
+          <View style={styles.cardGray}>
+            <Text style={{ color: "#fff" }}>Valor Total</Text>
+            <Text style={{ color: "#fff" }}>{formatCurrency(total)}</Text>
           </View>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "130px",
-              height: "130px",
-              border: "1px solid #5e6f77",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "10px",
-              borderRadius: "10px",
-            }}
-          >
-            <Text style={{ fontWeight: "bold" }}>Valor Pago</Text>
-            <Text>R$ {totalPagas}</Text>
+          <View style={styles.cardGreen}>
+            <Text style={{ color: "#fff" }}>Valor Pago</Text>
+            <Text style={{ color: "#fff" }}>{formatCurrency(totalPagas)}</Text>
           </View>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "130px",
-              height: "130px",
-              border: "1px solid #5e6f77",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "10px",
-              borderRadius: "10px",
-            }}
-          >
-            <Text style={{ fontWeight: "bold" }}>Valor a Pagar</Text>
-            <Text>R$ {totalAPagar}</Text>
-          </View>
-          <View
-            style={{
-              display: "flex",
-              flexDirection: "column",
-              width: "130px",
-              height: "130px",
-              border: "1px solid #5e6f77",
-              alignItems: "center",
-              justifyContent: "center",
-              margin: "10px",
-              borderRadius: "10px",
-            }}
-          >
-            <Text style={{ fontWeight: "bold" }}>Vencimento</Text>
-            <Text>
-              {new Date(Date.now()).getMonth() + 1}/
-              {new Date(Date.now()).getFullYear()}
-            </Text>
+          <View style={styles.cardRed}>
+            <Text style={{ color: "#fff" }}>Valor a pagar</Text>
+            <Text style={{ color: "#fff" }}>{formatCurrency(totalAPagar)}</Text>
           </View>
         </View>
-        <View style={{ display: "flex" }}>
-          <table style={{ flex: 1, margin: "10px" }}>
-            <thead>
-              <th
-                style={{
-                  color: "#5e6f77",
-                  fontWeight: "bold",
-                  fontSize: "1rem",
-                  textAlign: "left",
-                }}
-              >
-                Conta
-              </th>
-              <th
-                style={{
-                  color: "#5e6f77",
-                  fontWeight: "bold",
-                  fontSize: "1rem",
-                  textAlign: "left",
-                }}
-              >
-                Venc.
-              </th>
-              <th
-                style={{
-                  color: "#5e6f77",
-                  fontWeight: "bold",
-                  fontSize: "1rem",
-                  textAlign: "left",
-                }}
-              >
-                Valor
-              </th>
-              <th
-                style={{
-                  color: "#5e6f77",
-                  fontWeight: "bold",
-                  fontSize: "1rem",
-                  textAlign: "left",
-                }}
-              >
-                Pagamento
-              </th>
-            </thead>
 
-            <tbody>
-              {contas.map((conta) => {
-                const { tituloConta, vencConta, valorConta, statusConta } =
-                  conta;
+        <View
+          style={{
+            margin: "15px",
+            display: "flex",
+            flexDirection: "column",
+            flex: "1",
+            width: "100%",
+          }}
+        >
+          <View
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              fontWeight: "bold",
+              fontSize: "13px",
+              height: "25px",
+            }}
+          >
+            <Text style={{ flex: "1" }}>Conta</Text>
+            <Text style={{ flex: "1" }}>Valor</Text>
+            <Text style={{ flex: "1" }}>Venc.</Text>
+            <Text style={{ flex: "1" }}>Pagamento</Text>
+          </View>
 
-                return (
-                  <tr
-                    key={tituloConta}
-                    style={{ fontSize: "12px", display: "" }}
-                  >
-                    <td>
-                      {statusConta ? (
-                        <img
-                          src={Invoice_okIco}
-                          width={11}
-                          height={11}
-                          style={{ marginRight: "5px" }}
-                        />
-                      ) : (
-                        <img
-                          src={Invoice_NokIco}
-                          width={11}
-                          height={11}
-                          style={{ marginRight: "5px" }}
-                        />
-                      )}
-                      {tituloConta}
-                    </td>
-                    <td>
-                      <b>{vencConta}</b>
-                    </td>
-                    <td>{valorConta}</td>
-                    <td>{statusConta ? "PAGO" : "PENDENTE"}</td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          {contas.map((conta) => (
+            <View
+              key={conta.tituloConta}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                fontSize: "13px",
+                paddingBottom: "10px",
+              }}
+            >
+              <Text
+                style={{ flex: "1", display: "flex", flexDirection: "row" }}
+              >
+                {conta.statusConta ? (
+                  <Image
+                    src={Invoice_okIco}
+                    style={{ width: 11, height: 11, marginRight: 5 }}
+                  />
+                ) : (
+                  <Image
+                    src={Invoice_okIco}
+                    style={{ width: 11, height: 11, marginRight: 5 }}
+                  />
+                )}{" "}
+                {conta.tituloConta}
+              </Text>
+              <Text style={{ flex: "1" }}>{conta.valorConta}</Text>
+              <Text style={{ flex: "1" }}>{conta.vencConta}</Text>
+              <Text style={{ flex: "1" }}>
+                {conta.statusConta ? "OK" : "PENDENTE"}
+              </Text>
+            </View>
+          ))}
         </View>
 
         <View
@@ -205,14 +176,21 @@ const MyDocument = () => {
           }}
         >
           <Text style={{ fontSize: "9px", color: "#5e6f77" }}>
-            Fatura criada por <b>Pedro Henrique Salazar</b> usando o
-            renderizador <b>React-pdf</b>.
+            Fatura criada por{" "}
+            <Text style={{ fontWeight: "bold" }}>Pedro Henrique Salazar</Text>{" "}
+            usando o renderizador{" "}
+            <Text style={{ fontWeight: "bold" }}>React-pdf</Text>.
           </Text>
+
           <Text style={{ fontSize: "9px", color: "#5e6f77" }}>
             Este documento é exemplo de um relatório usando em{" "}
-            <a href="">
+            <Text
+              href="https://phsalazar.github.io/gestao-financeira-reactjs/"
+              target="_blank"
+              style={{ textDecoration: "underline" }}
+            >
               https://phsalazar.github.io/gestao-financeira-reactjs/
-            </a>
+            </Text>
             .
           </Text>
         </View>

@@ -17,7 +17,7 @@ const Sidebar = () => {
     {
       icon: iconMenuGraph,
       link: "gestao-financeira-reactjs/relatorios",
-      text: "Relatórios [Em Breve]",
+      text: "Relatórios",
     },
   ]);
 
