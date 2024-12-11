@@ -1,53 +1,54 @@
 .actionbar {
-    background-color: #f9f9f9;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    
-    position: absolute;
-    width: calc(100vw - 300px);
-    bottom: 0;
-    padding: 14px;
-    text-align: center;
-    border-top: 1px solid #eee;
-    box-shadow: 0 0 2px #ddd;
+  background-color: #f9f9f9;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  position: absolute;
+  width: calc(100vw - 300px);
+  bottom: 0;
+  padding: 14px;
+  text-align: center;
+  border-top: 1px solid #eee;
+  box-shadow: 0 0 2px #ddd;
 }
 
-
 .button {
-    padding: 8px;
-    border-radius: 8px;
-    color: #fff;
-    cursor: pointer;
-    transition: 0.5s;
-    margin-left: 20px;
+  padding: 8px;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+  transition: 0.5s;
+  margin-left: 20px;
 
-    &:hover {
-      background: none;
-    }
+  &:hover {
+    background: none;
+  }
 }
 
 .red {
-    background: #d94048;
-    border: 1px solid #d94048;
+  background: #d94048;
+  border: 1px solid #d94048;
 
-    &:hover {
-      border-color: #d94048;
-      color: #d94048;
-    }
+  &:hover {
+    border-color: #d94048;
+    color: #d94048;
+  }
 }
 
 .blue {
-    background: #00cb8d;
-    border: 1px solid #00cb8d;
-    &:hover {
-      border-color: #00cb8d;
-      color: #00cb8d;
-    }
+  background: #00cb8d;
+  border: 1px solid #00cb8d;
+  &:hover {
+    border-color: #00cb8d;
+    color: #00cb8d;
+  }
 }
 
 @media (max-width: 600px) {
-    .actionbar {
-        width: 100vw;
-    }
+  .actionbar {
+    width: 100vw;
+    position: fixed;
+    bottom: 0;
+  }
 }

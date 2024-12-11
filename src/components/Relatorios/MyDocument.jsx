@@ -88,7 +88,7 @@ const MyDocument = ({
           <Text
             style={{ color: "#ff626e", fontWeight: "bold", fontSize: "1.5rem" }}
           >
-            Gestor de Contas a Pagar
+            Gerenciador de Contas a Pagar
           </Text>
         </View>
 
@@ -151,7 +151,7 @@ const MyDocument = ({
                   />
                 ) : (
                   <Image
-                    src={Invoice_okIco}
+                    src={Invoice_NokIco}
                     style={{ width: 11, height: 11, marginRight: 5 }}
                   />
                 )}{" "}
@@ -176,14 +176,21 @@ const MyDocument = ({
           }}
         >
           <Text style={{ fontSize: "9px", color: "#5e6f77" }}>
-            Fatura criada por{" "}
+            Relatório criado por{" "}
             <Text style={{ fontWeight: "bold" }}>Pedro Henrique Salazar</Text>{" "}
             usando o renderizador{" "}
-            <Text style={{ fontWeight: "bold" }}>React-pdf</Text>.
+            <Text
+              style={{ fontWeight: "bold", textDecoration: "underline" }}
+              href="https://react-pdf.org/"
+              target="_blank"
+            >
+              React-pdf
+            </Text>
+            .
           </Text>
 
           <Text style={{ fontSize: "9px", color: "#5e6f77" }}>
-            Este documento é exemplo de um relatório usando em{" "}
+            Este documento é exemplo de um relatório usado em{" "}
             <Text
               href="https://phsalazar.github.io/gestao-financeira-reactjs/"
               target="_blank"

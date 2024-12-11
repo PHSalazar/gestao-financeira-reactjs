@@ -94,6 +94,7 @@
 
       &.aVenc {
         background: #f4c247;
+        display: inline-block;
         &::before {
           content: "A vencer";
         }
