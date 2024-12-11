@@ -3,7 +3,7 @@ import AppRoutes from "./Routes/Router";
 import UserContext from "./contexts/UserContext";
 import Sidebar from "./components/Sidebar/Sidebar";
 
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, useFetcher } from "react-router-dom";
 
 import style from "./App.module.css";
 
@@ -14,6 +14,21 @@ function App() {
   const [totalPagas, setTotalPagas] = useState(0);
   const [totalAPagar, setTotalAPagar] = useState(0);
   const [totalVencidas, setTotalVencidas] = useState(0);
+
+  useEffect(() => {
+    if (contas.length != 0) {
+      var textoContas = JSON.stringify(contas);
+      localStorage.setItem("contas-GestorDeContasAPagar", textoContas);
+    }
+  }, [contas]);
+
+  useEffect(() => {
+    var contasLocalStorage = JSON.parse(
+      localStorage.getItem("contas-GestorDeContasAPagar")
+    );
+
+    setContas(contasLocalStorage);
+  }, []);
 
   const convertToNumber = (number) => {
     const valorTotal = parseFloat(

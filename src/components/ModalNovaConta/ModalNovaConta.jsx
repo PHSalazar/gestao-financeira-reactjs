@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import styles from "./ModalNovaConta.module.css";
 import UserContext from "../../contexts/UserContext";
 
@@ -48,6 +48,7 @@ const ModalNovaConta = ({ hideModal }) => {
     };
 
     setContas((contasAnteriores) => [...contasAnteriores, novaConta]);
+
     hideModal();
   };
 
