@@ -129,6 +129,7 @@ const MyDocument = ({
             <Text style={{ flex: "1" }}>Valor</Text>
             <Text style={{ flex: "1" }}>Venc.</Text>
             <Text style={{ flex: "1" }}>Pagamento</Text>
+            <Text style={{ flex: "1" }}>Obs</Text>
           </View>
 
           {contas
@@ -164,6 +165,7 @@ const MyDocument = ({
                 <Text style={{ flex: "1" }}>
                   {conta.statusConta ? "OK" : "PENDENTE"}
                 </Text>
+                <Text style={{ flex: "1" }}>{conta.obs}</Text>
               </View>
             ))}
         </View>
