@@ -47,6 +47,7 @@ const Sidebar = () => {
         <section className={style.sidebarMenu}>
           {linksMenu.map((itemMenu) => (
             <LinkElement
+              key={itemMenu.text}
               icon={itemMenu.icon}
               text={itemMenu.text}
               link={itemMenu.link}

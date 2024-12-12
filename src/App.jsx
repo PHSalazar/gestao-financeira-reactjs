@@ -70,15 +70,20 @@ function App() {
     setContasSelecionadas([]);
   };
 
-  const removerContas = (contasParaRemover) => {
-    const contasRemovidas = contas.filter(
-      (conta) => !contasParaRemover.includes(conta)
-    );
-    setContas(contasRemovidas);
+  // const removerContas = (contasParaRemover) => {
+  //   const contasRemovidas = contas.filter(
+  //     (conta) => !contasParaRemover.includes(conta)
+  //   );
+  //   setContas(contasRemovidas);
 
-    setContasSelecionadas([]);
+  //   setContasSelecionadas([]);
+  // };
+
+  const desativarConta = (conta) => {
+    conta.ativo = false;
+    setContas(contas);
+    console.log(conta);
   };
-
   const selecinaConta = (conta) => {
     setContasSelecionadas([...contasSelecionadas, conta]);
   };
@@ -89,7 +94,9 @@ function App() {
   };
 
   const calcContasPagas = () => {
-    const contasPagas = contas.filter((conta) => conta.statusConta);
+    const contasPagas = contas.filter(
+      (conta) => conta.statusConta && conta.ativo
+    );
     if (contasPagas.length > 0) {
       setTotalPagas(
         contasPagas.reduce((a, obj) => {
@@ -102,7 +109,9 @@ function App() {
   };
 
   const calcContasAPagar = () => {
-    const contasAPagar = contas.filter((conta) => !conta.statusConta);
+    const contasAPagar = contas.filter(
+      (conta) => !conta.statusConta && conta.ativo
+    );
     if (contasAPagar.length > 0) {
       setTotalAPagar(
         contasAPagar.reduce((a, obj) => {
@@ -116,7 +125,10 @@ function App() {
 
   const calcContasVencidas = () => {
     const contasVencidas = contas.filter(
-      (conta) => conta.vencConta < new Date().getDate() && !conta.statusConta
+      (conta) =>
+        conta.vencConta < new Date().getDate() &&
+        !conta.statusConta &&
+        conta.ativo
     );
     if (contasVencidas.length > 0) {
       setTotalVencidas(
@@ -131,9 +143,11 @@ function App() {
 
   const calcTotalContas = () => {
     setTotal(
-      contas.reduce((a, obj) => {
-        return a + convertToNumber(obj.valorConta);
-      }, 0)
+      contas
+        .filter((c) => c.ativo == true)
+        .reduce((a, obj) => {
+          return a + convertToNumber(obj.valorConta);
+        }, 0)
     );
   };
 
@@ -151,7 +165,8 @@ function App() {
           contas,
           setContas,
           pagarConta,
-          removerContas,
+          // removerContas,
+          desativarConta,
           contasSelecionadas,
           selecinaConta,
           tirarSelecaoConta,

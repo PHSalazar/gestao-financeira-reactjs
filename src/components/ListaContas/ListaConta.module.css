@@ -40,7 +40,8 @@
           text-align: center;
         }
 
-        &:last-of-type {
+        &:nth-of-type(4),
+        &:nth-of-type(6) {
           text-align: center;
           button {
             background: none;
@@ -73,7 +74,7 @@
       }
     }
 
-    td[colspan="6"] {
+    td[colspan="7"] {
       text-align: center;
       padding: 10px;
     }

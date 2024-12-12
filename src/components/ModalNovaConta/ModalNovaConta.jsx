@@ -7,6 +7,7 @@ const ModalNovaConta = ({ hideModal }) => {
   const inputValor = useRef();
   const inputVencimento = useRef();
   const formNovaConta = useRef();
+  const inputOBS = useRef("");
 
   const { contas, setContas } = useContext(UserContext);
   const [messageModal, setMessageModal] = useState("");
@@ -25,12 +26,30 @@ const ModalNovaConta = ({ hideModal }) => {
     const verificarConta = contas.some(
       (conta) =>
         conta.tituloConta.toLowerCase() ===
-        inputTitulo.current.value.toLowerCase()
+          inputTitulo.current.value.toLowerCase() && conta.ativo
     );
     if (verificarConta) {
       setMessageModal(
         "Já existe uma conta com esse título. Tente outro título."
       );
+      setTimeout(() => {
+        setMessageModal("");
+      }, 4000);
+      return;
+    }
+
+    if (inputTitulo.current.value.length > 25) {
+      setMessageModal(
+        "O título da conta não pode ter mais do que 25 caracteres."
+      );
+      setTimeout(() => {
+        setMessageModal("");
+      }, 4000);
+      return;
+    }
+
+    if (inputOBS.current.value.length > 30) {
+      setMessageModal("Observação não pode ter mais do que 25 caracteres.");
       setTimeout(() => {
         setMessageModal("");
       }, 4000);
@@ -45,6 +64,8 @@ const ModalNovaConta = ({ hideModal }) => {
       }).format(inputValor.current.value),
       vencConta: parseInt(inputVencimento.current.value),
       statusConta: false,
+      obs: inputOBS.current.value,
+      ativo: true,
     };
 
     setContas((contasAnteriores) => [...contasAnteriores, novaConta]);
@@ -103,6 +124,14 @@ const ModalNovaConta = ({ hideModal }) => {
                 de cada mês
               </label>
             </div>
+
+            <textarea
+              type="text"
+              placeholder="Observações"
+              ref={inputOBS}
+              required
+              autoFocus
+            />
 
             <span id="message" className={styles.messageError}>
               {messageModal}
