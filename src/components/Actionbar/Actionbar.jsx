@@ -34,7 +34,7 @@ const Actionbar = () => {
             </button>
             <button
               className={`${style.button} ${style.red}`}
-              onClick={() => removerContas(contasSelecionadas)}
+              onClick={() => desativarContas(contasSelecionadas)}
             >
               REMOVER Selecionadas ({contasSelecionadas.length})
             </button>

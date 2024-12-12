@@ -35,10 +35,6 @@ const ListaContas = () => {
     pagarConta(contaTitulo);
   };
 
-  // const handleRemoverConta = (contaTitulo) => {
-  //   removerContas([contaTitulo]);
-  // };
-
   const handleDesativarConta = (conta) => {
     desativarConta(conta);
   };
@@ -103,16 +99,17 @@ const ListaContas = () => {
                     </td>
                     <td className={style.acoes}>
                       <button
-                        onClick={() => handlePagarConta(tituloConta)}
-                        disabled={statusConta}
+                        onClick={() => handlePagarConta(conta)}
+                        // disabled={statusConta}
+                        className={statusConta == true && style.btnPago}
                       >
                         <img
                           src={Invoice_okIco}
                           width={18}
                           height={18}
                           title={
-                            tituloConta === true
-                              ? `${tituloConta} já está PAGO.`
+                            statusConta == true
+                              ? `'${tituloConta}' já está PAGO.`
                               : `Pagar ${tituloConta}`
                           }
                         />

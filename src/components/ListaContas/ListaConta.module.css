@@ -62,6 +62,10 @@
             &[disabled] {
               opacity: 0.25;
             }
+
+            &.btnPago {
+              opacity: 0.5;
+            }
           }
         }
       }

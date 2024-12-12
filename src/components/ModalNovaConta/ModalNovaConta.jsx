@@ -125,13 +125,7 @@ const ModalNovaConta = ({ hideModal }) => {
               </label>
             </div>
 
-            <textarea
-              type="text"
-              placeholder="Observações"
-              ref={inputOBS}
-              required
-              autoFocus
-            />
+            <textarea type="text" placeholder="Observações" ref={inputOBS} />
 
             <span id="message" className={styles.messageError}>
               {messageModal}

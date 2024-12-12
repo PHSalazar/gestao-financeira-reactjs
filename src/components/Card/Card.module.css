@@ -37,8 +37,9 @@
   background: #005cc8;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 800px) {
   .card {
     margin: 10px;
+    width: 33.3%;
   }
 }
