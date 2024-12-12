@@ -131,39 +131,41 @@ const MyDocument = ({
             <Text style={{ flex: "1" }}>Pagamento</Text>
           </View>
 
-          {contas.map((conta) => (
-            <View
-              key={conta.tituloConta}
-              style={{
-                display: "flex",
-                flexDirection: "row",
-                fontSize: "13px",
-                paddingBottom: "10px",
-              }}
-            >
-              <Text
-                style={{ flex: "1", display: "flex", flexDirection: "row" }}
+          {contas
+            .filter((conta) => conta.ativo)
+            .map((conta) => (
+              <View
+                key={conta.tituloConta}
+                style={{
+                  display: "flex",
+                  flexDirection: "row",
+                  fontSize: "13px",
+                  paddingBottom: "10px",
+                }}
               >
-                {conta.statusConta ? (
-                  <Image
-                    src={Invoice_okIco}
-                    style={{ width: 11, height: 11, marginRight: 5 }}
-                  />
-                ) : (
-                  <Image
-                    src={Invoice_NokIco}
-                    style={{ width: 11, height: 11, marginRight: 5 }}
-                  />
-                )}{" "}
-                {conta.tituloConta}
-              </Text>
-              <Text style={{ flex: "1" }}>{conta.valorConta}</Text>
-              <Text style={{ flex: "1" }}>{conta.vencConta}</Text>
-              <Text style={{ flex: "1" }}>
-                {conta.statusConta ? "OK" : "PENDENTE"}
-              </Text>
-            </View>
-          ))}
+                <Text
+                  style={{ flex: "1", display: "flex", flexDirection: "row" }}
+                >
+                  {conta.statusConta ? (
+                    <Image
+                      src={Invoice_okIco}
+                      style={{ width: 11, height: 11, marginRight: 5 }}
+                    />
+                  ) : (
+                    <Image
+                      src={Invoice_NokIco}
+                      style={{ width: 11, height: 11, marginRight: 5 }}
+                    />
+                  )}{" "}
+                  {conta.tituloConta}
+                </Text>
+                <Text style={{ flex: "1" }}>{conta.valorConta}</Text>
+                <Text style={{ flex: "1" }}>{conta.vencConta}</Text>
+                <Text style={{ flex: "1" }}>
+                  {conta.statusConta ? "OK" : "PENDENTE"}
+                </Text>
+              </View>
+            ))}
         </View>
 
         <View
