@@ -59,28 +59,25 @@ function App() {
     }
   };
 
-  const pagarConta = (contaTitulo) => {
-    // setContas((contasAnteriores) =>
-    //   contasAnteriores.map((conta) =>
-    //     conta.tituloConta === contaTitulo
-    //       ? { ...conta, statusConta: true }
-    //       : conta
-    //   )
-    // );
-    // setContasSelecionadas([]);
-
-    contaTitulo.statusConta = !contaTitulo.statusConta;
+  const pagarConta = (conta, status) => {
+    console.log(conta.tituloConta, status);
+    conta.statusConta = status;
     setContas(contas);
-    setContasSelecionadas([]);
+    // setContasSelecionadas([]);
   };
 
   const desativarConta = (conta) => {
+    console.log(conta);
     conta.ativo = false;
     setContas(contas);
   };
   const selecinaConta = (conta) => {
     setContasSelecionadas([...contasSelecionadas, conta]);
   };
+
+  useEffect(() => {
+    console.log(contasSelecionadas);
+  }, [contasSelecionadas]);
 
   const tirarSelecaoConta = (conta) => {
     const contas = contasSelecionadas.filter((contaObj) => contaObj != conta);

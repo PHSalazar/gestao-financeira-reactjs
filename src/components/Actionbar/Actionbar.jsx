@@ -4,14 +4,8 @@ import BotaoAddConta from "./BotaoAddConta/BotaoAddConta";
 import UserContext from "../../contexts/UserContext";
 
 const Actionbar = () => {
-  const { contasSelecionadas, pagarConta, removerContas } =
+  const { contasSelecionadas, pagarConta, desativarConta } =
     useContext(UserContext);
-
-  const pagarContasSelecionadas = () => {
-    contasSelecionadas.map((conta) => {
-      pagarConta(conta.tituloConta);
-    });
-  };
 
   return (
     <div className={style.actionbar}>
@@ -28,13 +22,13 @@ const Actionbar = () => {
           <>
             <button
               className={`${style.button} ${style.blue}`}
-              onClick={pagarContasSelecionadas}
+              onClick={() => contasSelecionadas.map((conta) => pagarConta(conta, !conta.statusConta))}
             >
               Pagar Selecionadas ({contasSelecionadas.length})
             </button>
             <button
               className={`${style.button} ${style.red}`}
-              onClick={() => desativarContas(contasSelecionadas)}
+              onClick={() => contasSelecionadas.map((conta) => desativarConta(conta))}
             >
               REMOVER Selecionadas ({contasSelecionadas.length})
             </button>

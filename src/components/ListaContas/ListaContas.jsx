@@ -8,7 +8,6 @@ const ListaContas = () => {
   const {
     contas,
     pagarConta,
-    // removerContas,
     desativarConta,
     selecinaConta,
     tirarSelecaoConta,
@@ -29,14 +28,6 @@ const ListaContas = () => {
       retorno = style.aVenc;
     }
     return retorno;
-  };
-
-  const handlePagarConta = (contaTitulo) => {
-    pagarConta(contaTitulo);
-  };
-
-  const handleDesativarConta = (conta) => {
-    desativarConta(conta);
   };
 
   const handleSetContaSelecionada = (event, conta) => {
@@ -99,8 +90,7 @@ const ListaContas = () => {
                     </td>
                     <td className={style.acoes}>
                       <button
-                        onClick={() => handlePagarConta(conta)}
-                        // disabled={statusConta}
+                        onClick={() => pagarConta(conta, !conta.statusConta)}
                         className={statusConta == true && style.btnPago}
                       >
                         <img
@@ -114,7 +104,7 @@ const ListaContas = () => {
                           }
                         />
                       </button>
-                      <button onClick={() => handleDesativarConta(conta)}>
+                      <button onClick={() => desativarConta(conta)}>
                         <img
                           src={RemoveIco}
                           width={18}
