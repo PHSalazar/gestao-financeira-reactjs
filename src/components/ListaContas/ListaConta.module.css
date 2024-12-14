@@ -114,3 +114,10 @@
     }
   }
 }
+
+@media (max-width: 600px) {
+  .container {
+    overflow: auto;
+  }
+  
+}

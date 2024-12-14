@@ -16,4 +16,9 @@
     align-items: center;
     gap: 10px;
   }
+
+  .container { 
+    padding: 0;
+    overflow: hidden;
+  }
 }
