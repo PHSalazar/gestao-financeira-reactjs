@@ -11,21 +11,19 @@ const Actionbar = () => {
     const [visibilityModalRemoverConta, setVisibilityModalRemoverConta] = useState(false);
 
 
-    const handlePagarConta = () => {
+    const handlerPagarConta = () => {
       contasSelecionadas.map((conta) => pagarConta(conta, true));
       document.querySelectorAll(".inputSel").forEach(el => el.checked = false);
     }
 
-    const handleDesativarConta = () => {
+    const handlerDesativarConta = () => {
       setVisibilityModalRemoverConta(!visibilityModalRemoverConta);
-      // contasSelecionadas.map((conta) => desativarConta(conta))
-      // document.querySelectorAll(".inputSel").forEach(el => el.checked = false);
     }
 
   return (
     <div className={style.actionbar}>
       
-      {visibilityModalRemoverConta && (<ModalRemoverContas hideModal={() => handleDesativarConta()} />)}
+      {visibilityModalRemoverConta && (<ModalRemoverContas hideModal={() => handlerDesativarConta()} />)}
 
       <section>
         {contasSelecionadas.length > 0 && (
@@ -40,13 +38,13 @@ const Actionbar = () => {
           <>
             <button
               className={`${style.button} ${style.blue}`}
-              onClick={() => handlePagarConta()}
+              onClick={() => handlerPagarConta()}
             >
               Pagar Selecionadas ({contasSelecionadas.length})
             </button>
             <button
               className={`${style.button} ${style.red}`}
-              onClick={() => handleDesativarConta()}
+              onClick={() => handlerDesativarConta()}
             >
               REMOVER Selecionadas ({contasSelecionadas.length})
             </button>
