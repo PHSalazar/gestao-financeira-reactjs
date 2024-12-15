@@ -60,24 +60,23 @@ function App() {
   };
 
   const pagarConta = (conta, status) => {
-    console.log(conta.tituloConta, status);
     conta.statusConta = status;
     setContas(contas);
-    // setContasSelecionadas([]);
+    document.querySelectorAll(".inputSel").forEach(el => el.checked = true);
+    setContasSelecionadas([]);
   };
 
   const desativarConta = (conta) => {
-    console.log(conta);
     conta.ativo = false;
     setContas(contas);
+    document.querySelectorAll(".inputSel").forEach(el => el.checked = true);
+    setContasSelecionadas([]);
   };
+
   const selecinaConta = (conta) => {
     setContasSelecionadas([...contasSelecionadas, conta]);
   };
 
-  useEffect(() => {
-    console.log(contasSelecionadas);
-  }, [contasSelecionadas]);
 
   const tirarSelecaoConta = (conta) => {
     const contas = contasSelecionadas.filter((contaObj) => contaObj != conta);
@@ -156,7 +155,6 @@ function App() {
           contas,
           setContas,
           pagarConta,
-          // removerContas,
           desativarConta,
           contasSelecionadas,
           selecinaConta,

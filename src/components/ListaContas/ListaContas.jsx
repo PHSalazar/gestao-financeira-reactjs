@@ -4,7 +4,9 @@ import UserContext from "../../contexts/UserContext";
 import Invoice_okIco from "../../assets/invoice_ok.svg";
 import RemoveIco from "../../assets/remove.svg";
 
+
 const ListaContas = () => {
+
   const {
     contas,
     pagarConta,
@@ -33,6 +35,8 @@ const ListaContas = () => {
   const handleSetContaSelecionada = (event, conta) => {
     event.target.checked ? selecinaConta(conta) : tirarSelecaoConta(conta);
   };
+
+  
 
   return (
     <div className={style.container}>
@@ -67,9 +71,8 @@ const ListaContas = () => {
                   <tr key={tituloConta}>
                     <td>
                       <input
+                      className="inputSel"
                         type="checkbox"
-                        name=""
-                        id=""
                         onChange={(event) =>
                           handleSetContaSelecionada(event, conta)
                         }
@@ -91,7 +94,7 @@ const ListaContas = () => {
                     <td className={style.acoes}>
                       <button
                         onClick={() => pagarConta(conta, !conta.statusConta)}
-                        className={statusConta == true && style.btnPago}
+                        className={statusConta == true ? style.btnPago : undefined}
                       >
                         <img
                           src={Invoice_okIco}
