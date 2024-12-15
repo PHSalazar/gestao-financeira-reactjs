@@ -55,7 +55,7 @@ const Relatorio = () => {
   return (
     <section className={style.container}>
       <h1 className={style.title}>Relatórios</h1>
-      <p>
+      <p style={{width: "100%"}}>
         <MyDocument
           valores="ok"
           contas={contas}
