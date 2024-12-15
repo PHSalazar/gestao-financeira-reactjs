@@ -12,6 +12,34 @@
     justify-content: center;
 
     z-index: 99999;
+
+    div {
+        margin-top: 20px;
+        button {
+            padding: 5px;
+            background: none;
+            border: none;
+            opacity: 0.7;
+            
+            &:hover {
+                opacity: 1;
+            }
+        }
+        
+        .btnCancelar {
+            color: grey;
+        }
+        .btnRemover {
+            background: #d94048;
+            border: 1px solid #d94048;
+            padding: 8px;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.5s;
+            margin-left: 20px;
+        }
+    }
 }
 
 .wrapper {
@@ -19,30 +47,3 @@
     padding: 8px;
 }
 
-div {
-    margin-top: 20px;
-    button {
-        padding: 5px;
-        background: none;
-        border: none;
-        opacity: 0.7;
-        
-        &:hover {
-            opacity: 1;
-        }
-    }
-    
-    .btnCancelar {
-        color: grey;
-    }
-    .btnRemover {
-        background: #d94048;
-        border: 1px solid #d94048;
-        padding: 8px;
-        border-radius: 8px;
-        color: #fff;
-        cursor: pointer;
-        transition: 0.5s;
-        margin-left: 20px;
-    }
-}
