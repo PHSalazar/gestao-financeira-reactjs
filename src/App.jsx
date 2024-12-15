@@ -62,14 +62,12 @@ function App() {
   const pagarConta = (conta, status) => {
     conta.statusConta = status;
     setContas(contas);
-    document.querySelectorAll(".inputSel").forEach(el => el.checked = true);
     setContasSelecionadas([]);
   };
 
   const desativarConta = (conta) => {
     conta.ativo = false;
     setContas(contas);
-    document.querySelectorAll(".inputSel").forEach(el => el.checked = true);
     setContasSelecionadas([]);
   };
 
