@@ -6,6 +6,7 @@ import PendingIco from "../../assets/icoPending.svg";
 import RemoveIco from "../../assets/remove.svg";
 import EditIco from "../../assets/icoEdit.svg";
 import Infoico from "../../assets/icoInfo.svg";
+import ModalInfo from "../ModalInfo/ModalInfo";
 
 
 const ListaContas = () => {
@@ -39,6 +40,7 @@ const ListaContas = () => {
     event.target.checked ? selecinaConta(conta) : tirarSelecaoConta(conta);
   };
 
+  const [infoModalVisibity, setInfoModalVisibity] = useState(false);
   
 
   return (
@@ -82,7 +84,9 @@ const ListaContas = () => {
                     </td>
                     <td>{tituloConta} 
                       {obs.length != '' && 
-                        <img src={Infoico} width={14} height={14} className={style.btnInfo} />
+                      <button title="Clique para ver as observações" className={style.btnInfo} onClick={() => setInfoModalVisibity(!infoModalVisibity)}>
+                        <img src={Infoico} width={14} height={14}  alt="Botão deobservações"/>
+                      </button>
                       }</td>
                     <td>
                       <b>{vencConta}</b>
@@ -140,6 +144,13 @@ const ListaContas = () => {
           )}
         </tbody>
       </table>
+      
+      {infoModalVisibity == true && 
+        <ModalInfo titleModal="Informações" hideModal={() => setInfoModalVisibity(false)}>
+          <p>Oi</p>
+        </ModalInfo>
+      }
+      
     </div>
   );
 };

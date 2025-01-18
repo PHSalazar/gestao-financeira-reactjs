@@ -1,0 +1,82 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+  
+    position: fixed;
+    top: 0;
+    left: 0;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    z-index: 99999;
+
+    .titleModal {
+        background: #5f9cec;
+        text-align: center;
+        font-weight: 400;
+        color: #fff;
+        display: flex;
+        flex-direction: row;
+    
+        h3 {
+          flex: 1;
+          padding: 14px;
+          font-weight: 400;
+          color: #fff;
+        }
+    
+        button {
+          padding: 14px;
+          background: none;
+          border: none;
+          outline: none;
+          color: #f5f5f5;
+          cursor: pointer;
+          width: 50px;
+    
+          &:hover {
+            background: #558cd3;
+          }
+        }
+      }
+
+    div {
+        margin-top: 20px;
+        button {
+            padding: 5px;
+            background: none;
+            border: none;
+            opacity: 0.7;
+            
+            &:hover {
+                opacity: 1;
+            }
+        }
+        
+        .btnCancelar {
+            color: grey;
+        }
+        .btnRemover {
+            background: #d94048;
+            border: 1px solid #d94048;
+            padding: 8px;
+            border-radius: 8px;
+            color: #fff;
+            cursor: pointer;
+            transition: 0.5s;
+            margin-left: 20px;
+        }
+    }
+}
+
+.content {
+    padding: 12px;
+}
+
+.wrapper {
+    background-color: #fff;
+}
+
