@@ -2,7 +2,9 @@ import style from "./ListaConta.module.css";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../../contexts/UserContext";
 import Invoice_okIco from "../../assets/invoice_ok.svg";
+import PendingIco from "../../assets/icoPending.svg";
 import RemoveIco from "../../assets/remove.svg";
+import EditIco from "../../assets/icoEdit.svg";
 
 
 const ListaContas = () => {
@@ -94,9 +96,10 @@ const ListaContas = () => {
                       <button
                         onClick={() => pagarConta(conta, !conta.statusConta)}
                         className={statusConta == true ? style.btnPago : undefined}
+                        name={statusConta == true ? "icoRestore" : "icoPay"}
                       >
                         <img
-                          src={Invoice_okIco}
+                          src={statusConta == true ? PendingIco : Invoice_okIco}
                           width={18}
                           height={18}
                           title={
@@ -106,14 +109,26 @@ const ListaContas = () => {
                           }
                         />
                       </button>
-                      <button onClick={() => desativarConta(conta)}>
+
+                      <button onClick={() => desativarConta(conta)} name="icoEdit">
+                        <img
+                          src={EditIco}
+                          width={14}
+                          height={14}
+                          title={`Editar ${tituloConta}`}
+                        />
+                      </button>
+
+                      <button onClick={() => desativarConta(conta)} name="icoRemove">
                         <img
                           src={RemoveIco}
-                          width={18}
-                          height={18}
+                          width={14}
+                          height={14}
                           title={`Remover ${tituloConta}`}
                         />
                       </button>
+
+                      
                     </td>
                   </tr>
                 );

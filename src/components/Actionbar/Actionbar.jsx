@@ -40,13 +40,13 @@ const Actionbar = () => {
               className={`${style.button} ${style.blue}`}
               onClick={() => handlerPagarConta()}
             >
-              Pagar Selecionadas ({contasSelecionadas.length})
+              Pagar ({contasSelecionadas.length})
             </button>
             <button
               className={`${style.button} ${style.red}`}
               onClick={() => handlerDesativarConta()}
             >
-              REMOVER Selecionadas ({contasSelecionadas.length})
+              REMOVER ({contasSelecionadas.length})
             </button>
           </>
         )}

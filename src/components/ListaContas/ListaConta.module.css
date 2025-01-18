@@ -43,10 +43,21 @@
         &:nth-of-type(4),
         &:nth-of-type(6) {
           text-align: center;
+          display: flex;
+          align-items: center;
+          justify-self: center;
+          height: 50px;
+          
           button {
-            background: none;
             outline: none;
             border: none;
+            border-radius: 3px;
+            padding: 3px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
 
             margin: 4px;
 
@@ -63,10 +74,20 @@
               opacity: 0.25;
             }
 
-            &.btnPago {
-              opacity: 0.5;
+            &[name='icoRestore']{
+              background: #5E6F77;
+            }
+            &[name='icoPay']{
+              background: #96e78f;
+            }
+            &[name=icoRemove]{
+              background: #ec8267;
+            }
+            &[name=icoEdit]{
+              background: #F2E284;
             }
           }
+
         }
       }
       &:nth-of-type(odd) {
