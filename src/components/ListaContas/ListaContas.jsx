@@ -43,7 +43,7 @@ const ListaContas = () => {
       <table className={style.tabelaContas}>
         <thead>
           <tr>
-            <th colSpan={7}>Controle de Contas</th>
+            <th colSpan={6}>Controle de Contas</th>
           </tr>
           <tr>
             <th>#</th>
@@ -52,13 +52,12 @@ const ListaContas = () => {
             <th>Valor</th>
             <th>Status</th>
             <th>Ações</th>
-            <th>OBS</th>
           </tr>
         </thead>
         <tbody>
           {contas.filter((conta) => conta.ativo).length === 0 ? (
             <tr>
-              <td colSpan={7}>Por favor, adicione alguma conta à lista.</td>
+              <td colSpan={6}>Por favor, adicione alguma conta à lista.</td>
             </tr>
           ) : (
             contas
@@ -116,7 +115,6 @@ const ListaContas = () => {
                         />
                       </button>
                     </td>
-                    <td>{obs}</td>
                   </tr>
                 );
               })
