@@ -5,6 +5,7 @@ import Invoice_okIco from "../../assets/invoice_ok.svg";
 import PendingIco from "../../assets/icoPending.svg";
 import RemoveIco from "../../assets/remove.svg";
 import EditIco from "../../assets/icoEdit.svg";
+import Infoico from "../../assets/icoInfo.svg";
 
 
 const ListaContas = () => {
@@ -79,7 +80,10 @@ const ListaContas = () => {
                         }
                       />
                     </td>
-                    <td>{tituloConta}</td>
+                    <td>{tituloConta} 
+                      {obs.length != '' && 
+                        <img src={Infoico} width={14} height={14} className={style.btnInfo} />
+                      }</td>
                     <td>
                       <b>{vencConta}</b>
                     </td>
@@ -104,7 +108,7 @@ const ListaContas = () => {
                           height={18}
                           title={
                             statusConta == true
-                              ? `'${tituloConta}' já está PAGO.`
+                              ? `Restaurar '${tituloConta}' para NÃO PAGO`
                               : `Pagar ${tituloConta}`
                           }
                         />

@@ -132,6 +132,14 @@
           content: "Pago";
         }
       }
+
+    }
+
+    .btnInfo{
+      width: 16px;
+      height: 16px;
+      margin-left: 8px;
+      cursor: pointer;
     }
   }
 }
