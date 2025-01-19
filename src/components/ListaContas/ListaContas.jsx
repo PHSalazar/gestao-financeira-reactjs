@@ -151,7 +151,11 @@ const ListaContas = () => {
       </table>
       
       {infoModalVisibity == true && 
-        <ModalInfo titleModal="Informações" hideModal={() => setInfoModalVisibity(false)}>
+        <ModalInfo 
+          titleModal="Informações" 
+          hideModal={() => setInfoModalVisibity(false)}
+          button1={{title: "Fechar", action: () => setInfoModalVisibity(false), color: "grey"}}  
+        >
           <p>
             {infoContent}
           </p>

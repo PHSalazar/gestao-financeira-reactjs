@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styles from './ModalInfo.module.css';
 import { Children } from 'react';
 
-const ModalInfo = ({hideModal, titleModal, children }) => {
+const ModalInfo = ({hideModal, titleModal, children , button1 }) => {
     
 
   return (
@@ -22,7 +22,7 @@ const ModalInfo = ({hideModal, titleModal, children }) => {
                   {children}
                   </>
                   <div>
-                    <button className={styles.btnGrey} onClick={hideModal}>Fechar</button>
+                    <button className={button1.color == "grey" ? styles.btnGrey : styles.btnRed } onClick={button1.action}>{button1.title}</button>
                   </div>
                 </section>
             </div>
