@@ -41,7 +41,12 @@ const ListaContas = () => {
   };
 
   const [infoModalVisibity, setInfoModalVisibity] = useState(false);
+  const [infoContent, setInfoContent] = useState("");
   
+  const mostrarModal = (texto) => {
+    setInfoModalVisibity(true);
+    setInfoContent(texto);
+  }
 
   return (
     <div className={style.container}>
@@ -84,7 +89,7 @@ const ListaContas = () => {
                     </td>
                     <td>{tituloConta} 
                       {obs.length != '' && 
-                      <button title="Clique para ver as observações" className={style.btnInfo} onClick={() => setInfoModalVisibity(!infoModalVisibity)}>
+                      <button title="Clique para ver as observações" className={style.btnInfo} onClick={() => mostrarModal(obs)}>
                         <img src={Infoico} width={14} height={14}  alt="Botão deobservações"/>
                       </button>
                       }</td>
@@ -147,7 +152,9 @@ const ListaContas = () => {
       
       {infoModalVisibity == true && 
         <ModalInfo titleModal="Informações" hideModal={() => setInfoModalVisibity(false)}>
-          <p>Oi</p>
+          <p>
+            {infoContent}
+          </p>
         </ModalInfo>
       }
       

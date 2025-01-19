@@ -22,8 +22,7 @@ const ModalInfo = ({hideModal, titleModal, children }) => {
                   {children}
                   </>
                   <div>
-                    <button className={styles.btnCancelar} onClick={hideModal}>Cancelar</button>
-                    <button className={styles.btnRemover} onClick={() => handleDesativarConta()}>Remover</button>
+                    <button className={styles.btnGrey} onClick={hideModal}>Fechar</button>
                   </div>
                 </section>
             </div>
