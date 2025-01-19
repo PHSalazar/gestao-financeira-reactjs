@@ -14,7 +14,7 @@ Nesse projeto, pude praticar mais em ReactJS, tendo uma boa noção sobre compon
 
 - É possível adicionar suas contas para ter um controle total sobre elas.
 - É possível usar a versão Desktop e Mobile.
-- Relatório com histórico de gastos. _(em desenvolvimento)_
+- Relatório com histórico de gastos.
 
 ## Instalação
 
