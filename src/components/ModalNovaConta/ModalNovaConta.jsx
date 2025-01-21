@@ -74,7 +74,7 @@ const ModalNovaConta = ({ hideModal, editar = false, dadosParaEditarConta = null
 
     if (editar == true) {
       contaProcurada = novaConta;
-      let contaProcuradaIndex = contas.findIndex(c => c.tituloConta == dadosParaEditarConta.tituloConta);
+      let contaProcuradaIndex = contas.findIndex(c => c.tituloConta == dadosParaEditarConta.tituloConta && c.ativo == true);
       console.log("conta atualizada", contaProcuradaIndex);
       contas[contaProcuradaIndex] = novaConta;
       setContas(contas); // Atualizando todas as contas já cadastradas.
