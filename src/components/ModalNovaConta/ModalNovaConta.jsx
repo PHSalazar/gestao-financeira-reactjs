@@ -2,7 +2,7 @@ import { useContext, useRef, useState } from "react";
 import styles from "./ModalNovaConta.module.css";
 import UserContext from "../../contexts/UserContext";
 
-const ModalNovaConta = ({ hideModal }) => {
+const ModalNovaConta = ({ hideModal, editar = false, dadosParaEditarConta = null }) => {
   const inputTitulo = useRef();
   const inputValor = useRef();
   const inputVencimento = useRef();
@@ -28,8 +28,9 @@ const ModalNovaConta = ({ hideModal }) => {
         conta.tituloConta.toLowerCase() ===
           inputTitulo.current.value.toLowerCase() && conta.ativo
     );
-    if (verificarConta) {
-      setMessageModal(
+
+    if (verificarConta && editar == false) {
+       setMessageModal(
         "Já existe uma conta com esse título. Tente outro título."
       );
       setTimeout(() => {
@@ -37,6 +38,7 @@ const ModalNovaConta = ({ hideModal }) => {
       }, 4000);
       return;
     }
+   
 
     if (inputTitulo.current.value.length > 25) {
       setMessageModal(
@@ -68,8 +70,19 @@ const ModalNovaConta = ({ hideModal }) => {
       ativo: true,
     };
 
-    setContas((contasAnteriores) => [...contasAnteriores, novaConta]);
+    let contaProcurada;
 
+    if (editar == true) {
+      contaProcurada = novaConta;
+      let contaProcuradaIndex = contas.findIndex(c => c.tituloConta == dadosParaEditarConta.tituloConta);
+      console.log("conta atualizada", contaProcuradaIndex);
+      contas[contaProcuradaIndex] = novaConta;
+      setContas(contas); // Atualizando todas as contas já cadastradas.
+      hideModal();
+      return;
+    }
+
+    setContas((contasAnteriores) => [...contasAnteriores, novaConta]);
     hideModal();
   };
 
@@ -77,7 +90,7 @@ const ModalNovaConta = ({ hideModal }) => {
     <section className={styles.backModal}>
       <article className={styles.modal}>
         <section className={styles.titleModal}>
-          <h3>Adicionando nova conta</h3>
+          <h3>{editar ? "Editando Conta" : "Adicionando nova conta"}</h3>
           <button className={styles.close} onClick={hideModal}>
             x
           </button>
@@ -96,6 +109,7 @@ const ModalNovaConta = ({ hideModal }) => {
               ref={inputTitulo}
               required
               autoFocus
+              defaultValue={editar ? dadosParaEditarConta.tituloConta : ''}
             />
             <input
               type="number"
@@ -106,6 +120,10 @@ const ModalNovaConta = ({ hideModal }) => {
               placeholder="Valor aproximado"
               ref={inputValor}
               required
+              defaultValue={editar ? dadosParaEditarConta.valorConta.split(" ")[1]
+                .replace(/\./g, "")
+                .replace(/,/g, ".")
+                : ''}
             />
             <div className={styles.camposVencimento}>
               <input
@@ -118,6 +136,7 @@ const ModalNovaConta = ({ hideModal }) => {
                 placeholder="Data de Vencimento Mensal"
                 ref={inputVencimento}
                 required
+                defaultValue={editar ? dadosParaEditarConta.vencConta : ''}
               />
 
               <label htmlFor="" className={styles.legenda}>
@@ -125,7 +144,12 @@ const ModalNovaConta = ({ hideModal }) => {
               </label>
             </div>
 
-            <textarea type="text" placeholder="Observações" ref={inputOBS} />
+            <textarea 
+                type="text"
+                placeholder="Observações" 
+                ref={inputOBS} 
+                defaultValue={editar ? dadosParaEditarConta.obs : ''}
+                />
 
             <span id="message" className={styles.messageError}>
               {messageModal}

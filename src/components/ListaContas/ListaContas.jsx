@@ -7,6 +7,7 @@ import RemoveIco from "../../assets/remove.svg";
 import EditIco from "../../assets/icoEdit.svg";
 import Infoico from "../../assets/icoInfo.svg";
 import ModalInfo from "../ModalInfo/ModalInfo";
+import ModalNovaConta from "../ModalNovaConta/ModalNovaConta";
 
 
 const ListaContas = () => {
@@ -18,6 +19,10 @@ const ListaContas = () => {
     selecinaConta,
     tirarSelecaoConta,
   } = useContext(UserContext);
+
+  const [visibilityModal, setVisibilityModal] = useState(false);
+  const [statusEditarConta, setStatusEditarConta] = useState(false);
+  const [dadosParaEditarConta, setDadosParaEditarContas] = useState(null);
 
   const checkStatus = (statusConta, dataVencimento) => {
     if (statusConta) {
@@ -123,7 +128,11 @@ const ListaContas = () => {
                         />
                       </button>
 
-                      <button onClick={() => desativarConta(conta)} name="icoEdit">
+                      <button onClick={() => {
+                        setStatusEditarConta(true);
+                        setVisibilityModal(true);
+                        setDadosParaEditarContas(conta);
+                      }} name="icoEdit">
                         <img
                           src={EditIco}
                           width={14}
@@ -161,6 +170,10 @@ const ListaContas = () => {
           </p>
         </ModalInfo>
       }
+
+      {visibilityModal && (
+        <ModalNovaConta hideModal={() => setVisibilityModal(false)} editar={statusEditarConta} dadosParaEditarConta={dadosParaEditarConta} />
+      )}
       
     </div>
   );
