@@ -6,12 +6,17 @@ import UserContext from "../contexts/UserContext";
 import Actionbar from "../components/Actionbar/Actionbar";
 import ModalRemoverContas from "../components/ModalRemoverContas/ModalRemoverContas";
 
+import { ToastContainer, toast } from 'react-toastify';
+
 const Main = () => {
   const { total, totalPagas, totalAPagar, totalVencidas } =
     useContext(UserContext);
 
+
   return (
     <section>
+        <ToastContainer />
+
       <div className={style.container}>
         <section className={style.cards}>
           <Card

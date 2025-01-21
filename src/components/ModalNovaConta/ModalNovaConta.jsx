@@ -2,6 +2,8 @@ import { useContext, useRef, useState } from "react";
 import styles from "./ModalNovaConta.module.css";
 import UserContext from "../../contexts/UserContext";
 
+import { toast } from 'react-toastify';
+
 const ModalNovaConta = ({ hideModal, editar = false, dadosParaEditarConta = null }) => {
   const inputTitulo = useRef();
   const inputValor = useRef();
@@ -75,9 +77,18 @@ const ModalNovaConta = ({ hideModal, editar = false, dadosParaEditarConta = null
     if (editar == true) {
       contaProcurada = novaConta;
       let contaProcuradaIndex = contas.findIndex(c => c.tituloConta == dadosParaEditarConta.tituloConta && c.ativo == true);
-      console.log("conta atualizada", contaProcuradaIndex);
       contas[contaProcuradaIndex] = novaConta;
       setContas(contas); // Atualizando todas as contas já cadastradas.
+      toast.success(`${novaConta.tituloConta} atualizada com sucesso.`, {
+        position: "top-right",
+        autoClose: true,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        });
       hideModal();
       return;
     }
