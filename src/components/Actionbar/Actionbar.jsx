@@ -3,6 +3,7 @@ import style from "./Actionbar.module.css";
 import BotaoAddConta from "./BotaoAddConta/BotaoAddConta";
 import UserContext from "../../contexts/UserContext";
 import ModalRemoverContas from "../ModalRemoverContas/ModalRemoverContas";
+import ModalInfo from '../ModalInfo/ModalInfo';
 
 const Actionbar = () => {
   const { contasSelecionadas, pagarConta, desativarConta } =
@@ -16,14 +17,34 @@ const Actionbar = () => {
       document.querySelectorAll(".inputSel").forEach(el => el.checked = false);
     }
 
-    const handlerDesativarConta = () => {
+    const changeVisibilityModal = () => {
       setVisibilityModalRemoverConta(!visibilityModalRemoverConta);
+    }
+
+    const removerContas = () => {
+      contasSelecionadas.map((conta) => desativarConta(conta))
+      document.querySelectorAll(".inputSel").forEach(el => el.checked = false);
+      changeVisibilityModal();
     }
 
   return (
     <div className={style.actionbar}>
       
-      {visibilityModalRemoverConta && (<ModalRemoverContas hideModal={() => handlerDesativarConta()} />)}
+      {visibilityModalRemoverConta && (
+      <ModalInfo
+          titleModal="Informações" 
+          hideModal={() => changeVisibilityModal()}
+          button1={{title: "Fechar", action: () => changeVisibilityModal(), color: "grey"}}
+          button2={{title: "SIM, REMOVER", action: () => removerContas(), color: "red"}}
+      >
+        <p>Deseja realmente remover as contas abaixo?</p>
+        <ol style={{fontStyle: "italic", flex: 1}}>
+        {
+          contasSelecionadas.map(({tituloConta}) => (<li key={tituloConta}>{tituloConta}</li>))
+        }
+        </ol>
+      </ModalInfo>
+      )}
 
       <section>
         {contasSelecionadas.length > 0 && (
@@ -44,7 +65,7 @@ const Actionbar = () => {
             </button>
             <button
               className={`${style.button} ${style.red}`}
-              onClick={() => handlerDesativarConta()}
+              onClick={() => changeVisibilityModal()}
             >
               REMOVER ({contasSelecionadas.length})
             </button>
