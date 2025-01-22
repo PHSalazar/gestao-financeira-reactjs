@@ -1,4 +1,4 @@
-import Main from "../pages/Main";
+import Main from "../pages/MainPage/Main";
 import Relatorio from "../pages/RelatoriosPage/Relatorio";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 

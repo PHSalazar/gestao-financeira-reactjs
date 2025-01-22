@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import AppRoutes from "./Routes/Router";
 import UserContext from "./contexts/UserContext";
 import Sidebar from "./components/Sidebar/Sidebar";
+import { ToastContainer, toast } from "react-toastify";
 
 import { BrowserRouter as Router, useFetcher } from "react-router-dom";
 
@@ -163,6 +164,8 @@ function App() {
           totalVencidas,
         }}
       >
+        <ToastContainer />
+
         <section className={style.wrapper}>
           <Sidebar />
 
