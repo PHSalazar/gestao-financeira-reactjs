@@ -4,7 +4,6 @@ import ListaContas from "../components/ListaContas/ListaContas";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext";
 import Actionbar from "../components/Actionbar/Actionbar";
-import ModalRemoverContas from "../components/ModalRemoverContas/ModalRemoverContas";
 
 import { ToastContainer, toast } from 'react-toastify';
 

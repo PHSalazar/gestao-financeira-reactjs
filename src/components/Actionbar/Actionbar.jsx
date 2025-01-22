@@ -2,7 +2,6 @@ import { useContext, useState } from "react";
 import style from "./Actionbar.module.css";
 import BotaoAddConta from "./BotaoAddConta/BotaoAddConta";
 import UserContext from "../../contexts/UserContext";
-import ModalRemoverContas from "../ModalRemoverContas/ModalRemoverContas";
 import ModalInfo from '../ModalInfo/ModalInfo';
 
 const Actionbar = () => {
