@@ -76,75 +76,27 @@ function App() {
     setContasSelecionadas([...contasSelecionadas, conta]);
   };
 
-
   const tirarSelecaoConta = (conta) => {
     const contas = contasSelecionadas.filter((contaObj) => contaObj != conta);
     setContasSelecionadas(contas);
   };
 
-  const calcContasPagas = () => {
-    const contasPagas = contas.filter(
-      (conta) => conta.statusConta && conta.ativo
-    );
-    if (contasPagas.length > 0) {
-      setTotalPagas(
-        contasPagas.reduce((a, obj) => {
-          return a + convertToNumber(obj.valorConta);
-        }, 0)
-      );
-    } else {
-      setTotalPagas(0);
-    }
-  };
+  const calcularTotalContas = (contas, filtro) => {
+    console.log("contas", contas);
 
-  const calcContasAPagar = () => {
-    const contasAPagar = contas.filter(
-      (conta) => !conta.statusConta && conta.ativo
-    );
-    if (contasAPagar.length > 0) {
-      setTotalAPagar(
-        contasAPagar.reduce((a, obj) => {
-          return a + convertToNumber(obj.valorConta);
-        }, 0)
-      );
-    } else {
-      setTotalAPagar(0);
-    }
-  };
+    if (contas != undefined) {
+      const contasFiltradas = contas.filter(filtro);
 
-  const calcContasVencidas = () => {
-    const contasVencidas = contas.filter(
-      (conta) =>
-        conta.vencConta < new Date().getDate() &&
-        !conta.statusConta &&
-        conta.ativo
-    );
-    if (contasVencidas.length > 0) {
-      setTotalVencidas(
-        contasVencidas.reduce((a, obj) => {
-          return a + convertToNumber(obj.valorConta);
-        }, 0)
-      );
-    } else {
-      setTotalVencidas(0);
-    }
-  };
+      var valorSomado = contasFiltradas.reduce((acc, conta) => {
+        return acc + convertToNumber(conta.valorConta);
+      }, 0);
 
-  const calcTotalContas = () => {
-    setTotal(
-      contas
-        .filter((c) => c.ativo == true)
-        .reduce((a, obj) => {
-          return a + convertToNumber(obj.valorConta);
-        }, 0)
-    );
+      return valorSomado;
+    }
   };
 
   useEffect(() => {
-    calcTotalContas();
-    calcContasPagas();
-    calcContasAPagar();
-    calcContasVencidas();
+    calcularTotalContas();
   }, [contas]);
 
   return (
@@ -158,10 +110,7 @@ function App() {
           contasSelecionadas,
           selecinaConta,
           tirarSelecaoConta,
-          total,
-          totalPagas,
-          totalAPagar,
-          totalVencidas,
+          calcularTotalContas,
         }}
       >
         <ToastContainer />
