@@ -7,12 +7,18 @@ import style from "./Main.module.css";
 const Main = () => {
   return (
     <section>
-      
-
       <div className={style.container}>
         <ContainerCads />
 
-        <BotaoAddConta />
+        <section
+          style={{
+            display: "flex",
+            justifyContent: "right",
+            padding: "10px 0",
+          }}
+        >
+          <BotaoAddConta />
+        </section>
 
         <ListaContas />
       </div>
