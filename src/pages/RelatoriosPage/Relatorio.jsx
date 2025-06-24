@@ -13,8 +13,14 @@ import {
 } from "@react-pdf/renderer";
 
 const Relatorio = () => {
-  const { contas, total, totalPagas, totalAPagar, totalVencidas, calcularTotalContas } =
-    useContext(UserContext);
+  const {
+    contas,
+    total,
+    totalPagas,
+    totalAPagar,
+    totalVencidas,
+    calcularTotalContas,
+  } = useContext(UserContext);
 
   const styles = StyleSheet.create({
     addNovaConta: {
@@ -49,13 +55,13 @@ const Relatorio = () => {
     "NOV",
     "DEZ",
   ];
-  
+
   const formatCurrency = (number) => {
-  return new Intl.NumberFormat("pt-br", {
-    style: "currency",
-    currency: "BRL",
-  }).format(number);
-};
+    return new Intl.NumberFormat("pt-br", {
+      style: "currency",
+      currency: "BRL",
+    }).format(number);
+  };
 
   var date = new Date(Date.now());
   var dateFormated = months[date.getMonth] + "/" + date.getFullYear() + 1;
@@ -63,16 +69,34 @@ const Relatorio = () => {
   return (
     <section className={style.container}>
       <h1 className={style.title}>Relatórios</h1>
-      <p style={{width: "100%"}}>
+      <p style={{ width: "100%" }}>
         <MyDocument
           valores="ok"
           contas={contas}
-          total={formatCurrency(calcularTotalContas(contas, (conta) => conta.ativo))}
-            totalPagas={formatCurrency(calcularTotalContas(contas, (conta) => conta.statusConta && conta.ativo))}
-            totalAPagar={formatCurrency(calcularTotalContas(contas, (conta) => !conta.statusConta && conta.ativo))}
-            totalVencidas={formatCurrency(calcularTotalContas(contas, (conta) => conta.vencConta < new Date().getDate() &&
-            !conta.statusConta &&
-            conta.ativo))}
+          total={formatCurrency(
+            calcularTotalContas(contas, (conta) => conta.ativo)
+          )}
+          totalPagas={formatCurrency(
+            calcularTotalContas(
+              contas,
+              (conta) => conta.statusConta && conta.ativo
+            )
+          )}
+          totalAPagar={formatCurrency(
+            calcularTotalContas(
+              contas,
+              (conta) => !conta.statusConta && conta.ativo
+            )
+          )}
+          totalVencidas={formatCurrency(
+            calcularTotalContas(
+              contas,
+              (conta) =>
+                conta.vencConta < new Date().getDate() &&
+                !conta.statusConta &&
+                conta.ativo
+            )
+          )}
         />
       </p>
 
@@ -81,12 +105,30 @@ const Relatorio = () => {
           <MyDocument
             valores="ok"
             contas={contas}
-            total={formatCurrency(calcularTotalContas(contas, (conta) => conta.ativo))}
-            totalPagas={formatCurrency(calcularTotalContas(contas, (conta) => conta.statusConta && conta.ativo))}
-            totalAPagar={formatCurrency(calcularTotalContas(contas, (conta) => !conta.statusConta && conta.ativo))}
-            totalVencidas={formatCurrency(calcularTotalContas(contas, (conta) => conta.vencConta < new Date().getDate() &&
-            !conta.statusConta &&
-            conta.ativo))}
+            total={formatCurrency(
+              calcularTotalContas(contas, (conta) => conta.ativo)
+            )}
+            totalPagas={formatCurrency(
+              calcularTotalContas(
+                contas,
+                (conta) => conta.statusConta && conta.ativo
+              )
+            )}
+            totalAPagar={formatCurrency(
+              calcularTotalContas(
+                contas,
+                (conta) => !conta.statusConta && conta.ativo
+              )
+            )}
+            totalVencidas={formatCurrency(
+              calcularTotalContas(
+                contas,
+                (conta) =>
+                  conta.vencConta < new Date().getDate() &&
+                  !conta.statusConta &&
+                  conta.ativo
+              )
+            )}
           />
         }
       >
