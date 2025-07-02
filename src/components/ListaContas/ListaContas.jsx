@@ -9,7 +9,7 @@ import ModalInfo from "../ModalInfo/ModalInfo";
 import ModalNovaConta from "../ModalNovaConta/ModalNovaConta";
 import style from "./ListaConta.module.css";
 
-const ListaContas = () => {
+const ListaContas = ({ contasExibicao }) => {
   const { contas, setContas } = useContext(UserContext);
 
   const [visibilityModal, setVisibilityModal] = useState(false);
@@ -18,7 +18,8 @@ const ListaContas = () => {
 
   const pagarConta = (contaPagar) => {
     const novasContas = contas.map((conta) =>
-      conta.tituloConta === contaPagar.tituloConta
+      conta.tituloConta === contaPagar.tituloConta &&
+      conta.vencConta === contaPagar.vencConta
         ? { ...conta, statusConta: !conta.statusConta }
         : conta
     );
@@ -81,17 +82,17 @@ const ListaContas = () => {
           </tr>
         </thead>
         <tbody>
-          {contas.length === 0 ? (
+          {contasExibicao.length === 0 ? (
             <tr>
               <td colSpan={5}>Por favor, adicione alguma conta à lista.</td>
             </tr>
           ) : (
-            contas.map((conta) => {
+            contasExibicao.map((conta) => {
               const { tituloConta, vencConta, valorConta, statusConta, obs } =
                 conta;
 
               return (
-                <tr key={tituloConta}>
+                <tr key={`${tituloConta}_${vencConta}}`}>
                   <td>
                     {tituloConta}
                     {obs.length != "" && (

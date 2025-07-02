@@ -12,11 +12,14 @@ const ModalNovaConta = ({
   const inputTitulo = useRef();
   const inputValor = useRef();
   const inputVencimento = useRef();
+  const inputRepet = useRef();
   const formNovaConta = useRef();
   const inputOBS = useRef("");
 
   const { contas, setContas } = useContext(UserContext);
   const [messageModal, setMessageModal] = useState("");
+
+  const [repetMonthly, setRepetMonthly] = useState(false);
 
   const upperNomeConta = (nomeConta) => {
     let novoNomeConta =
@@ -63,24 +66,33 @@ const ModalNovaConta = ({
       return;
     }
 
-    const novaConta = {
-      tituloConta: upperNomeConta(inputTitulo.current.value),
-      valorConta: parseFloat(inputValor.current.value),
-      vencConta: inputVencimento.current.value,
-      statusConta: false,
-      obs: inputOBS.current.value,
-    };
+    const novasContas = [];
+    const quantMeses = repetMonthly ? parseInt(inputRepet.current.value) : 1;
 
-    let contaProcurada;
+    for (let i = 0; i < quantMeses; i++) {
+      const dataVencimento = new Date(inputVencimento.current.value);
+      dataVencimento.setMonth(dataVencimento.getMonth() + i);
+
+      const novaConta = {
+        tituloConta: upperNomeConta(inputTitulo.current.value),
+        valorConta: parseFloat(inputValor.current.value),
+        vencConta: dataVencimento.toISOString().split("T")[0],
+        statusConta: false,
+        repetFor: quantMeses,
+        obs: inputOBS.current.value,
+      };
+
+      novasContas.push(novaConta);
+    }
 
     if (editar == true) {
-      contaProcurada = novaConta;
       let contaProcuradaIndex = contas.findIndex(
         (c) => c.tituloConta == dadosParaEditarConta.tituloConta
       );
-      contas[contaProcuradaIndex] = novaConta;
+      contas[contaProcuradaIndex] = novasContas[0];
       setContas(contas); // Atualizando todas as contas já cadastradas.
-      toast.success(`${novaConta.tituloConta} atualizada com sucesso.`, {
+
+      toast.success(`${novasContas[0].tituloConta} atualizada com sucesso.`, {
         position: "top-right",
         autoClose: true,
         hideProgressBar: false,
@@ -94,7 +106,7 @@ const ModalNovaConta = ({
       return;
     }
 
-    setContas((contasAnteriores) => [...contasAnteriores, novaConta]);
+    setContas((contasAnteriores) => [...contasAnteriores, ...novasContas]);
     hideModal();
   };
 
@@ -144,10 +156,40 @@ const ModalNovaConta = ({
                 }
               />
 
-              <label htmlFor="" className={styles.legenda}>
-                de cada mês
-              </label>
+              <div>
+                <input
+                  type="checkbox"
+                  name="repetMonthy"
+                  id="repetMonthly"
+                  onChange={(e) => setRepetMonthly(e.target.checked)}
+                />
+                <label htmlFor="repetMonthly" className={styles.legenda}>
+                  Repetir mensalmente
+                </label>
+              </div>
             </div>
+
+            {repetMonthly && (
+              <>
+                <label
+                  htmlFor="labelnumberRepetMonthly"
+                  style={{ color: "#888", paddingLeft: "8px" }}
+                >
+                  Repetir por (x) meses
+                </label>
+                <input
+                  type="number"
+                  name="numberRepetMonthly"
+                  id="numberRepetMonthly"
+                  min={2}
+                  max={12}
+                  required
+                  placeholder="Número de meses que essa conta deve ser paga"
+                  defaultValue={editar ? dadosParaEditarConta.repetMonthky : 1}
+                  ref={inputRepet}
+                />
+              </>
+            )}
 
             <textarea
               type="text"
