@@ -1,26 +1,38 @@
-import style from "./ListaConta.module.css";
-import { useContext, useEffect, useState } from "react";
-import UserContext from "../../contexts/UserContext";
-import Invoice_okIco from "../../assets/invoice_ok.svg";
-import PendingIco from "../../assets/icoPending.svg";
-import RemoveIco from "../../assets/remove.svg";
+import { useContext, useState } from "react";
 import EditIco from "../../assets/icoEdit.svg";
 import Infoico from "../../assets/icoInfo.svg";
+import PendingIco from "../../assets/icoPending.svg";
+import Invoice_okIco from "../../assets/invoice_ok.svg";
+import RemoveIco from "../../assets/remove.svg";
+import UserContext from "../../contexts/UserContext";
 import ModalInfo from "../ModalInfo/ModalInfo";
 import ModalNovaConta from "../ModalNovaConta/ModalNovaConta";
+import style from "./ListaConta.module.css";
 
 const ListaContas = () => {
-  const {
-    contas,
-    pagarConta,
-    desativarConta,
-    selecinaConta,
-    tirarSelecaoConta,
-  } = useContext(UserContext);
+  const { contas, setContas } = useContext(UserContext);
 
   const [visibilityModal, setVisibilityModal] = useState(false);
   const [statusEditarConta, setStatusEditarConta] = useState(false);
   const [dadosParaEditarConta, setDadosParaEditarContas] = useState(null);
+
+  const pagarConta = (contaPagar) => {
+    const novasContas = contas.map((conta) =>
+      conta.tituloConta === contaPagar.tituloConta
+        ? { ...conta, statusConta: !conta.statusConta }
+        : conta
+    );
+
+    setContas(novasContas);
+  };
+
+  const removerConta = (contaRemover) => {
+    const contasRemovidas = contas.filter(
+      (conta) => conta.tituloConta !== contaRemover.tituloConta
+    );
+
+    setContas(contasRemovidas);
+  };
 
   const checkStatus = (statusConta, dataVencimento) => {
     if (statusConta) {
@@ -37,10 +49,6 @@ const ListaContas = () => {
       retorno = style.aVenc;
     }
     return retorno;
-  };
-
-  const handleSetContaSelecionada = (event, conta) => {
-    event.target.checked ? selecinaConta(conta) : tirarSelecaoConta(conta);
   };
 
   const [infoModalVisibity, setInfoModalVisibity] = useState(false);
@@ -146,7 +154,7 @@ const ListaContas = () => {
                       </button>
 
                       <button
-                        onClick={() => desativarConta(conta)}
+                        onClick={() => removerConta(conta)}
                         name="icoRemove"
                       >
                         <img
