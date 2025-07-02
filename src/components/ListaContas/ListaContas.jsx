@@ -9,9 +9,7 @@ import Infoico from "../../assets/icoInfo.svg";
 import ModalInfo from "../ModalInfo/ModalInfo";
 import ModalNovaConta from "../ModalNovaConta/ModalNovaConta";
 
-
 const ListaContas = () => {
-
   const {
     contas,
     pagarConta,
@@ -47,21 +45,20 @@ const ListaContas = () => {
 
   const [infoModalVisibity, setInfoModalVisibity] = useState(false);
   const [infoContent, setInfoContent] = useState("");
-  
+
   const mostrarModal = (texto) => {
     setInfoModalVisibity(true);
     setInfoContent(texto);
-  }
+  };
 
   return (
     <div className={style.container}>
       <table className={style.tabelaContas}>
         <thead>
           <tr>
-            <th colSpan={6}>Controle de Contas</th>
+            <th colSpan={5}>Controle de Contas</th>
           </tr>
           <tr>
-            <th>#</th>
             <th>Conta</th>
             <th>Venc.</th>
             <th>Valor</th>
@@ -72,7 +69,7 @@ const ListaContas = () => {
         <tbody>
           {contas.filter((conta) => conta.ativo).length === 0 ? (
             <tr>
-              <td colSpan={6}>Por favor, adicione alguma conta à lista.</td>
+              <td colSpan={5}>Por favor, adicione alguma conta à lista.</td>
             </tr>
           ) : (
             contas
@@ -84,20 +81,22 @@ const ListaContas = () => {
                 return (
                   <tr key={tituloConta}>
                     <td>
-                      <input
-                      className="inputSel"
-                        type="checkbox"
-                        onChange={(event) =>
-                          handleSetContaSelecionada(event, conta)
-                        }
-                      />
+                      {tituloConta}
+                      {obs.length != "" && (
+                        <button
+                          title="Clique para ver as observações"
+                          className={style.btnInfo}
+                          onClick={() => mostrarModal(obs)}
+                        >
+                          <img
+                            src={Infoico}
+                            width={14}
+                            height={14}
+                            alt="Botão deobservações"
+                          />
+                        </button>
+                      )}
                     </td>
-                    <td>{tituloConta} 
-                      {obs.length != '' && 
-                      <button title="Clique para ver as observações" className={style.btnInfo} onClick={() => mostrarModal(obs)}>
-                        <img src={Infoico} width={14} height={14}  alt="Botão deobservações"/>
-                      </button>
-                      }</td>
                     <td>
                       <b>{vencConta}</b>
                     </td>
@@ -113,7 +112,9 @@ const ListaContas = () => {
                     <td className={style.acoes}>
                       <button
                         onClick={() => pagarConta(conta, !conta.statusConta)}
-                        className={statusConta == true ? style.btnPago : undefined}
+                        className={
+                          statusConta == true ? style.btnPago : undefined
+                        }
                         name={statusConta == true ? "icoRestore" : "icoPay"}
                       >
                         <img
@@ -128,11 +129,14 @@ const ListaContas = () => {
                         />
                       </button>
 
-                      <button onClick={() => {
-                        setStatusEditarConta(true);
-                        setVisibilityModal(true);
-                        setDadosParaEditarContas(conta);
-                      }} name="icoEdit">
+                      <button
+                        onClick={() => {
+                          setStatusEditarConta(true);
+                          setVisibilityModal(true);
+                          setDadosParaEditarContas(conta);
+                        }}
+                        name="icoEdit"
+                      >
                         <img
                           src={EditIco}
                           width={14}
@@ -141,7 +145,10 @@ const ListaContas = () => {
                         />
                       </button>
 
-                      <button onClick={() => desativarConta(conta)} name="icoRemove">
+                      <button
+                        onClick={() => desativarConta(conta)}
+                        name="icoRemove"
+                      >
                         <img
                           src={RemoveIco}
                           width={14}
@@ -149,8 +156,6 @@ const ListaContas = () => {
                           title={`Remover ${tituloConta}`}
                         />
                       </button>
-
-                      
                     </td>
                   </tr>
                 );
@@ -158,23 +163,28 @@ const ListaContas = () => {
           )}
         </tbody>
       </table>
-      
-      {infoModalVisibity == true && 
-        <ModalInfo 
-          titleModal="Informações" 
+
+      {infoModalVisibity == true && (
+        <ModalInfo
+          titleModal="Informações"
           hideModal={() => setInfoModalVisibity(false)}
-          button1={{title: "Fechar", action: () => setInfoModalVisibity(false), color: "grey"}}  
+          button1={{
+            title: "Fechar",
+            action: () => setInfoModalVisibity(false),
+            color: "grey",
+          }}
         >
-          <p>
-            {infoContent}
-          </p>
+          <p>{infoContent}</p>
         </ModalInfo>
-      }
+      )}
 
       {visibilityModal && (
-        <ModalNovaConta hideModal={() => setVisibilityModal(false)} editar={statusEditarConta} dadosParaEditarConta={dadosParaEditarConta} />
+        <ModalNovaConta
+          hideModal={() => setVisibilityModal(false)}
+          editar={statusEditarConta}
+          dadosParaEditarConta={dadosParaEditarConta}
+        />
       )}
-      
     </div>
   );
 };

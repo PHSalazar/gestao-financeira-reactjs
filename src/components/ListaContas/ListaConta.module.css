@@ -41,13 +41,11 @@
         }
 
         &:nth-of-type(4),
-        &:nth-of-type(6) {
+        &:nth-of-type(5) {
           text-align: center;
-          display: flex;
-          align-items: center;
-          justify-self: center;
+
           height: 50px;
-          
+
           button {
             outline: none;
             border: none;
@@ -74,20 +72,23 @@
               opacity: 0.25;
             }
 
-            &[name='icoRestore']{
-              background: #5E6F77;
+            &[name="icoRestore"] {
+              background: #5e6f77;
+              display: inline-flex;
             }
-            &[name='icoPay']{
+            &[name="icoPay"] {
               background: #96e78f;
+              display: inline-flex;
             }
-            &[name=icoRemove]{
+            &[name="icoRemove"] {
               background: #ec8267;
+              display: inline-flex;
             }
-            &[name=icoEdit]{
-              background: #F2E284;
+            &[name="icoEdit"] {
+              background: #f2e284;
+              display: inline-flex;
             }
           }
-
         }
       }
       &:nth-of-type(odd) {
@@ -99,7 +100,7 @@
       }
     }
 
-    td[colspan="7"] {
+    td[colspan="6"] {
       text-align: center;
       padding: 10px;
     }
@@ -132,10 +133,9 @@
           content: "Pago";
         }
       }
-
     }
 
-    .btnInfo{
+    .btnInfo {
       background: none;
       outline: none;
       border: none;
@@ -154,5 +154,4 @@
   .container {
     overflow: auto;
   }
-  
 }
