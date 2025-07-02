@@ -9,25 +9,19 @@ export const ContainerCads = () => {
   return (
     <section className={style.cards}>
       <Card
-        valor={calcularTotalContas(contas, (conta) => conta.ativo)}
+        valor={calcularTotalContas(contas, () => true)}
         legenda="Total"
         cor="blue"
         title="Soma de todas as contas que estão cadastradas."
       />
       <Card
-        valor={calcularTotalContas(
-          contas,
-          (conta) => conta.statusConta && conta.ativo
-        )}
+        valor={calcularTotalContas(contas, (conta) => conta.statusConta)}
         legenda="Pagas"
         cor="green"
         title="Soma de todas as contas que já foram pagas."
       />
       <Card
-        valor={calcularTotalContas(
-          contas,
-          (conta) => !conta.statusConta && conta.ativo
-        )}
+        valor={calcularTotalContas(contas, (conta) => !conta.statusConta)}
         legenda="A pagar"
         cor="gray"
         title="Soma das contas que ainda não foram pagas."
@@ -36,9 +30,7 @@ export const ContainerCads = () => {
         valor={calcularTotalContas(
           contas,
           (conta) =>
-            conta.vencConta < new Date().getDate() &&
-            !conta.statusConta &&
-            conta.ativo
+            conta.vencConta < new Date().getDate() && !conta.statusConta
         )}
         legenda="Em atraso"
         cor="red"

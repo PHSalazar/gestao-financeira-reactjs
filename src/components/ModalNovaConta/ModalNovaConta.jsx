@@ -2,9 +2,13 @@ import { useContext, useRef, useState } from "react";
 import styles from "./ModalNovaConta.module.css";
 import UserContext from "../../contexts/UserContext";
 
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
-const ModalNovaConta = ({ hideModal, editar = false, dadosParaEditarConta = null }) => {
+const ModalNovaConta = ({
+  hideModal,
+  editar = false,
+  dadosParaEditarConta = null,
+}) => {
   const inputTitulo = useRef();
   const inputValor = useRef();
   const inputVencimento = useRef();
@@ -32,7 +36,7 @@ const ModalNovaConta = ({ hideModal, editar = false, dadosParaEditarConta = null
     );
 
     if (verificarConta && editar == false) {
-       setMessageModal(
+      setMessageModal(
         "Já existe uma conta com esse título. Tente outro título."
       );
       setTimeout(() => {
@@ -40,7 +44,6 @@ const ModalNovaConta = ({ hideModal, editar = false, dadosParaEditarConta = null
       }, 4000);
       return;
     }
-   
 
     if (inputTitulo.current.value.length > 25) {
       setMessageModal(
@@ -52,31 +55,22 @@ const ModalNovaConta = ({ hideModal, editar = false, dadosParaEditarConta = null
       return;
     }
 
-    if (inputOBS.current.value.length > 30) {
-      setMessageModal("Observação não pode ter mais do que 25 caracteres.");
-      setTimeout(() => {
-        setMessageModal("");
-      }, 4000);
-      return;
-    }
-
     const novaConta = {
       tituloConta: upperNomeConta(inputTitulo.current.value),
-      valorConta: new Intl.NumberFormat("pt-br", {
-        style: "currency",
-        currency: "BRL",
-      }).format(inputValor.current.value),
+      valorConta: parseFloat(inputValor.current.value),
       vencConta: parseInt(inputVencimento.current.value),
       statusConta: false,
       obs: inputOBS.current.value,
-      ativo: true,
     };
 
     let contaProcurada;
 
     if (editar == true) {
       contaProcurada = novaConta;
-      let contaProcuradaIndex = contas.findIndex(c => c.tituloConta == dadosParaEditarConta.tituloConta && c.ativo == true);
+      let contaProcuradaIndex = contas.findIndex(
+        (c) =>
+          c.tituloConta == dadosParaEditarConta.tituloConta && c.ativo == true
+      );
       contas[contaProcuradaIndex] = novaConta;
       setContas(contas); // Atualizando todas as contas já cadastradas.
       toast.success(`${novaConta.tituloConta} atualizada com sucesso.`, {
@@ -88,7 +82,7 @@ const ModalNovaConta = ({ hideModal, editar = false, dadosParaEditarConta = null
         draggable: true,
         progress: undefined,
         theme: "colored",
-        });
+      });
       hideModal();
       return;
     }
@@ -120,7 +114,7 @@ const ModalNovaConta = ({ hideModal, editar = false, dadosParaEditarConta = null
               ref={inputTitulo}
               required
               autoFocus
-              defaultValue={editar ? dadosParaEditarConta.tituloConta : ''}
+              defaultValue={editar ? dadosParaEditarConta.tituloConta : ""}
             />
             <input
               type="number"
@@ -131,10 +125,7 @@ const ModalNovaConta = ({ hideModal, editar = false, dadosParaEditarConta = null
               placeholder="Valor aproximado"
               ref={inputValor}
               required
-              defaultValue={editar ? dadosParaEditarConta.valorConta.split(" ")[1]
-                .replace(/\./g, "")
-                .replace(/,/g, ".")
-                : ''}
+              defaultValue={editar ? dadosParaEditarConta.valorConta : ""}
             />
             <div className={styles.camposVencimento}>
               <input
@@ -147,7 +138,7 @@ const ModalNovaConta = ({ hideModal, editar = false, dadosParaEditarConta = null
                 placeholder="Data de Vencimento Mensal"
                 ref={inputVencimento}
                 required
-                defaultValue={editar ? dadosParaEditarConta.vencConta : ''}
+                defaultValue={editar ? dadosParaEditarConta.vencConta : ""}
               />
 
               <label htmlFor="" className={styles.legenda}>
@@ -155,12 +146,12 @@ const ModalNovaConta = ({ hideModal, editar = false, dadosParaEditarConta = null
               </label>
             </div>
 
-            <textarea 
-                type="text"
-                placeholder="Observações" 
-                ref={inputOBS} 
-                defaultValue={editar ? dadosParaEditarConta.obs : ''}
-                />
+            <textarea
+              type="text"
+              placeholder="Observações"
+              ref={inputOBS}
+              defaultValue={editar ? dadosParaEditarConta.obs : ""}
+            />
 
             <span id="message" className={styles.messageError}>
               {messageModal}

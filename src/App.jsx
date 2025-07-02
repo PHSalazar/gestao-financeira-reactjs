@@ -16,22 +16,12 @@ const App = () => {
     localStorage.setItem("contas-GestorDeContasAPagar", JSON.stringify(contas));
   }, [contas]);
 
-  const convertToNumber = (number) => {
-    const valorTotal = parseFloat(
-      number
-        .replace(/[^\d,.-]/g, "")
-        .replace(/\./g, "")
-        .replace(",", ".")
-    );
-    return valorTotal;
-  };
-
   const calcularTotalContas = (contas, filtro) => {
     if (contas != undefined) {
       const contasFiltradas = contas.filter(filtro);
 
       var valorSomado = contasFiltradas.reduce((acc, conta) => {
-        return acc + convertToNumber(conta.valorConta);
+        return acc + conta.valorConta;
       }, 0);
 
       return valorSomado;

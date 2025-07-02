@@ -75,99 +75,97 @@ const ListaContas = () => {
           </tr>
         </thead>
         <tbody>
-          {contas.filter((conta) => conta.ativo).length === 0 ? (
+          {contas.length === 0 ? (
             <tr>
               <td colSpan={5}>Por favor, adicione alguma conta à lista.</td>
             </tr>
           ) : (
-            contas
-              .filter((conta) => conta.ativo)
-              .map((conta) => {
-                const { tituloConta, vencConta, valorConta, statusConta, obs } =
-                  conta;
+            contas.map((conta) => {
+              const { tituloConta, vencConta, valorConta, statusConta, obs } =
+                conta;
 
-                return (
-                  <tr key={tituloConta}>
-                    <td>
-                      {tituloConta}
-                      {obs.length != "" && (
-                        <button
-                          title="Clique para ver as observações"
-                          className={style.btnInfo}
-                          onClick={() => mostrarModal(obs)}
-                        >
-                          <img
-                            src={Infoico}
-                            width={14}
-                            height={14}
-                            alt="Botão deobservações"
-                          />
-                        </button>
-                      )}
-                    </td>
-                    <td>
-                      <b>{vencConta}</b>
-                    </td>
-                    <td>{valorConta}</td>
-                    <td>
-                      <span
-                        className={`${style.statusConta} ${checkStatus(
-                          statusConta,
-                          vencConta
-                        )}`}
-                      ></span>
-                    </td>
-                    <td className={style.acoes}>
+              return (
+                <tr key={tituloConta}>
+                  <td>
+                    {tituloConta}
+                    {obs.length != "" && (
                       <button
-                        onClick={() => pagarConta(conta, !conta.statusConta)}
-                        className={
-                          statusConta == true ? style.btnPago : undefined
+                        title="Clique para ver as observações"
+                        className={style.btnInfo}
+                        onClick={() => mostrarModal(obs)}
+                      >
+                        <img
+                          src={Infoico}
+                          width={14}
+                          height={14}
+                          alt="Botão deobservações"
+                        />
+                      </button>
+                    )}
+                  </td>
+                  <td>
+                    <b>{vencConta}</b>
+                  </td>
+                  <td>{valorConta}</td>
+                  <td>
+                    <span
+                      className={`${style.statusConta} ${checkStatus(
+                        statusConta,
+                        vencConta
+                      )}`}
+                    ></span>
+                  </td>
+                  <td className={style.acoes}>
+                    <button
+                      onClick={() => pagarConta(conta, !conta.statusConta)}
+                      className={
+                        statusConta == true ? style.btnPago : undefined
+                      }
+                      name={statusConta == true ? "icoRestore" : "icoPay"}
+                    >
+                      <img
+                        src={statusConta == true ? PendingIco : Invoice_okIco}
+                        width={18}
+                        height={18}
+                        title={
+                          statusConta == true
+                            ? `Restaurar '${tituloConta}' para NÃO PAGO`
+                            : `Pagar ${tituloConta}`
                         }
-                        name={statusConta == true ? "icoRestore" : "icoPay"}
-                      >
-                        <img
-                          src={statusConta == true ? PendingIco : Invoice_okIco}
-                          width={18}
-                          height={18}
-                          title={
-                            statusConta == true
-                              ? `Restaurar '${tituloConta}' para NÃO PAGO`
-                              : `Pagar ${tituloConta}`
-                          }
-                        />
-                      </button>
+                      />
+                    </button>
 
-                      <button
-                        onClick={() => {
-                          setStatusEditarConta(true);
-                          setVisibilityModal(true);
-                          setDadosParaEditarContas(conta);
-                        }}
-                        name="icoEdit"
-                      >
-                        <img
-                          src={EditIco}
-                          width={14}
-                          height={14}
-                          title={`Editar ${tituloConta}`}
-                        />
-                      </button>
+                    <button
+                      onClick={() => {
+                        setStatusEditarConta(true);
+                        setVisibilityModal(true);
+                        setDadosParaEditarContas(conta);
+                      }}
+                      name="icoEdit"
+                    >
+                      <img
+                        src={EditIco}
+                        width={14}
+                        height={14}
+                        title={`Editar ${tituloConta}`}
+                      />
+                    </button>
 
-                      <button
-                        onClick={() => removerConta(conta)}
-                        name="icoRemove"
-                      >
-                        <img
-                          src={RemoveIco}
-                          width={14}
-                          height={14}
-                          title={`Remover ${tituloConta}`}
-                        />
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })
+                    <button
+                      onClick={() => removerConta(conta)}
+                      name="icoRemove"
+                    >
+                      <img
+                        src={RemoveIco}
+                        width={14}
+                        height={14}
+                        title={`Remover ${tituloConta}`}
+                      />
+                    </button>
+                  </td>
+                </tr>
+              );
+            })
           )}
         </tbody>
       </table>
