@@ -17,6 +17,7 @@
       background: #5e6f77;
       padding: 8px;
       width: 100%;
+      text-align: center;
       th {
         column-span: 6;
       }
@@ -26,10 +27,13 @@
       padding: 8px;
       font-weight: bold;
       color: #5e6f77;
+      text-align: left;
+      padding-left: 26px;
     }
 
     tbody tr {
       height: 50px;
+      text-align: left;
 
       td {
         padding-left: 26px;
@@ -37,13 +41,6 @@
 
         &:nth-of-type(4),
         &:nth-of-type(5) {
-          text-align: center;
-        }
-
-        &:nth-of-type(4),
-        &:nth-of-type(5) {
-          text-align: center;
-
           height: 50px;
 
           button {

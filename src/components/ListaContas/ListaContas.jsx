@@ -39,16 +39,22 @@ const ListaContas = () => {
       return style.pronto;
     }
 
-    const dataAtual = new Date().getDate();
-    const status = dataAtual > dataVencimento;
-    let retorno;
+    const dataAtual = new Date().setHours(0, 0, 0, 0);
+    const dataPartes = dataVencimento.split("-");
+    const vencimentoData = new Date(
+      parseInt(dataPartes[0], 10),
+      parseInt(dataPartes[1], 10) - 1,
+      parseInt(dataPartes[2], 10)
+    );
 
-    if (status) {
-      retorno = style.vencido;
-    } else {
-      retorno = style.aVenc;
-    }
-    return retorno;
+    vencimentoData.setHours(0, 0, 0, 0);
+
+    return dataAtual > vencimentoData ? style.vencido : style.aVenc;
+  };
+
+  const formatData = (data) => {
+    const dataPartes = data.split("-");
+    return `${dataPartes[2]}/${dataPartes[1]}/${dataPartes[0]}`;
   };
 
   const [infoModalVisibity, setInfoModalVisibity] = useState(false);
@@ -103,10 +109,8 @@ const ListaContas = () => {
                       </button>
                     )}
                   </td>
-                  <td>
-                    <b>{vencConta}</b>
-                  </td>
-                  <td>{valorConta}</td>
+                  <td>{formatData(vencConta)}</td>
+                  <td>R$ {valorConta}</td>
                   <td>
                     <span
                       className={`${style.statusConta} ${checkStatus(

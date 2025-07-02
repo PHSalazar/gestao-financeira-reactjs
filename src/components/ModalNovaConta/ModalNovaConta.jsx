@@ -26,6 +26,14 @@ const ModalNovaConta = ({
     return novoNomeConta;
   };
 
+  const getDataHoje = () => {
+    const hoje = new Date();
+    const ano = hoje.getFullYear();
+    const mes = String(hoje.getMonth() + 1).padStart(2, "0");
+    const dia = String(hoje.getDate()).padStart(2, "0");
+    return `${ano}-${mes}-${dia}`;
+  };
+
   const submitFormNovaConta = (event) => {
     event.preventDefault();
 
@@ -58,7 +66,7 @@ const ModalNovaConta = ({
     const novaConta = {
       tituloConta: upperNomeConta(inputTitulo.current.value),
       valorConta: parseFloat(inputValor.current.value),
-      vencConta: parseInt(inputVencimento.current.value),
+      vencConta: inputVencimento.current.value,
       statusConta: false,
       obs: inputOBS.current.value,
     };
@@ -68,8 +76,7 @@ const ModalNovaConta = ({
     if (editar == true) {
       contaProcurada = novaConta;
       let contaProcuradaIndex = contas.findIndex(
-        (c) =>
-          c.tituloConta == dadosParaEditarConta.tituloConta && c.ativo == true
+        (c) => c.tituloConta == dadosParaEditarConta.tituloConta
       );
       contas[contaProcuradaIndex] = novaConta;
       setContas(contas); // Atualizando todas as contas já cadastradas.
@@ -129,16 +136,12 @@ const ModalNovaConta = ({
             />
             <div className={styles.camposVencimento}>
               <input
-                type="number"
-                name=""
-                id=""
-                min={1}
-                max={31}
-                step={1}
-                placeholder="Data de Vencimento Mensal"
+                type="date"
                 ref={inputVencimento}
                 required
-                defaultValue={editar ? dadosParaEditarConta.vencConta : ""}
+                defaultValue={
+                  editar ? dadosParaEditarConta.vencConta : getDataHoje()
+                }
               />
 
               <label htmlFor="" className={styles.legenda}>
