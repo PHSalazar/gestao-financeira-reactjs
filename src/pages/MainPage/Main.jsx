@@ -7,13 +7,12 @@ import { useContext, useEffect, useRef, useState } from "react";
 import UserContext from "../../contexts/UserContext";
 
 const Main = () => {
-  const inputRefMonth = useRef();
   const { contas } = useContext(UserContext);
   const [contasExibicao, setContasExibicao] = useState([]);
+  const [monthSelectOptions, setMonthSelectOptions] = useState([]);
+  const [monthSelected, setMonthSelected] = useState("allMonths");
 
-  const [monthSelect, setMonthSelect] = useState([]);
-
-  useEffect(() => {
+  const getMonths = () => {
     const mesesSelect = [];
     var nomesMeses = [
       "Jan",
@@ -42,28 +41,32 @@ const Main = () => {
       }
     });
 
-    setMonthSelect(Array.from(mesesSelect));
-  }, []);
-
-  useEffect(() => {
-    const contasFiltradas = contas.filter((conta) =>
-      conta.vencConta.startsWith(inputRefMonth.current.value)
-    );
-    setContasExibicao(contasFiltradas);
-  }, [contas]);
+    setMonthSelectOptions(Array.from(mesesSelect));
+  };
 
   const handlerFilterBillsByMonth = () => {
-    const contasFiltradas = contas.filter((conta) =>
-      conta.vencConta.startsWith(inputRefMonth.current.value)
-    );
+    const filterLabel =
+      monthSelected === "allMonths"
+        ? () => true
+        : (conta) => conta.vencConta.startsWith(monthSelected);
+
+    const contasFiltradas = contas.filter(filterLabel);
 
     setContasExibicao(contasFiltradas);
   };
 
+  useEffect(() => {
+    getMonths();
+  }, [contas]);
+
+  useEffect(() => {
+    handlerFilterBillsByMonth();
+  }, [contas, monthSelected]);
+
   return (
     <section>
       <div className={style.container}>
-        <ContainerCads />
+        <ContainerCads mesSelecionado={monthSelected} />
 
         <section
           style={{
@@ -75,10 +78,11 @@ const Main = () => {
           <select
             name="selectMonth"
             id="selectMonth"
-            onChange={handlerFilterBillsByMonth}
-            ref={inputRefMonth}
+            onChange={(e) => setMonthSelected(e.target.value)}
+            defaultValue="allMonths"
           >
-            {monthSelect.map(({ label, content }) => (
+            <option value="allMonths">Todos os meses</option>
+            {monthSelectOptions.map(({ label, content }) => (
               <option key={content} value={content}>
                 {label}
               </option>
