@@ -66,13 +66,11 @@ const Main = () => {
   return (
     <section>
       <div className={style.container}>
-        <ContainerCads mesSelecionado={monthSelected} />
-
         <section
           style={{
             display: "flex",
-            justifyContent: "space-between",
-            padding: "10px 0",
+            justifyContent: "space-around",
+            padding: "20px 0",
           }}
         >
           <select
@@ -88,7 +86,17 @@ const Main = () => {
               </option>
             ))}
           </select>
+        </section>
 
+        <ContainerCads mesSelecionado={monthSelected} />
+
+        <section
+          style={{
+            display: "flex",
+            justifyContent: "right",
+            padding: "10px",
+          }}
+        >
           <BotaoAddConta />
         </section>
 
