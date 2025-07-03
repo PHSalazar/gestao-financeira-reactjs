@@ -26,9 +26,10 @@
       font-weight: 400;
       padding: 8px;
       font-weight: bold;
-      color: #5e6f77;
+      color: #556f81;
       text-align: left;
       padding-left: 26px;
+      border-radius: 10px 10px 0 0;
     }
 
     tbody tr {
@@ -37,7 +38,7 @@
 
       td {
         padding-left: 26px;
-        color: #5e6f77;
+        color: #556f81;
 
         &:nth-of-type(4),
         &:nth-of-type(5) {
@@ -74,15 +75,15 @@
               display: inline-flex;
             }
             &[name="icoPay"] {
-              background: #96e78f;
+              background: #00b693;
               display: inline-flex;
             }
             &[name="icoRemove"] {
-              background: #ec8267;
+              background: #f96e61;
               display: inline-flex;
             }
             &[name="icoEdit"] {
-              background: #f2e284;
+              background: #f2b138;
               display: inline-flex;
             }
           }

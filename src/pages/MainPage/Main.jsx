@@ -5,6 +5,7 @@ import { ContainerCads } from "../../components/ListaCards/ContainerCads";
 import style from "./Main.module.css";
 import { useContext, useEffect, useRef, useState } from "react";
 import UserContext from "../../contexts/UserContext";
+import Navbar from "../../components/Navbar/Navbar";
 
 const Main = () => {
   const { contas } = useContext(UserContext);
@@ -64,47 +65,49 @@ const Main = () => {
   }, [contas, monthSelected]);
 
   return (
-    <section>
-      <div className={style.container}>
-        <section
+    <>
+      <Navbar>
+        <select
+          name="selectMonth"
+          id="selectMonth"
+          onChange={(e) => setMonthSelected(e.target.value)}
+          defaultValue="allMonths"
           style={{
-            display: "flex",
-            justifyContent: "space-around",
-            padding: "20px 0",
+            padding: "8px",
+            borderRadius: "10px",
+            border: "1px solid #5e6f7733",
+            background: "#fff",
           }}
         >
-          <select
-            name="selectMonth"
-            id="selectMonth"
-            onChange={(e) => setMonthSelected(e.target.value)}
-            defaultValue="allMonths"
+          <option value="allMonths">Todos os meses</option>
+          {monthSelectOptions.map(({ label, content }) => (
+            <option key={content} value={content}>
+              {label}
+            </option>
+          ))}
+        </select>
+      </Navbar>
+
+      <section>
+        <div className={style.container}>
+          <ContainerCads mesSelecionado={monthSelected} />
+
+          <section
+            style={{
+              display: "flex",
+              justifyContent: "right",
+              padding: "10px",
+            }}
           >
-            <option value="allMonths">Todos os meses</option>
-            {monthSelectOptions.map(({ label, content }) => (
-              <option key={content} value={content}>
-                {label}
-              </option>
-            ))}
-          </select>
-        </section>
+            <BotaoAddConta />
+          </section>
 
-        <ContainerCads mesSelecionado={monthSelected} />
+          <ListaContas contasExibicao={contasExibicao} />
+        </div>
 
-        <section
-          style={{
-            display: "flex",
-            justifyContent: "right",
-            padding: "10px",
-          }}
-        >
-          <BotaoAddConta />
-        </section>
-
-        <ListaContas contasExibicao={contasExibicao} />
-      </div>
-
-      {/* <Actionbar /> */}
-    </section>
+        {/* <Actionbar /> */}
+      </section>
+    </>
   );
 };
 
