@@ -1,11 +1,65 @@
 import { BlobProvider, StyleSheet } from "@react-pdf/renderer";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import MyDocument from "../../components/Relatorios/MyDocument";
 import UserContext from "../../contexts/UserContext";
 import style from "./Relatorio.module.css";
 
 const Relatorio = () => {
   const { contas, calcularTotalContas } = useContext(UserContext);
+  const [contasExibicao, setContasExibicao] = useState([]);
+  const [monthSelectOptions, setMonthSelectOptions] = useState([]);
+  const [monthSelected, setMonthSelected] = useState("allMonths");
+
+  const getMonths = () => {
+    const mesesSelect = [];
+    var nomesMeses = [
+      "Jan",
+      "Fev",
+      "Mar",
+      "Abr",
+      "Mai",
+      "Jun",
+      "Jul",
+      "Ago",
+      "Set",
+      "Out",
+      "Nov",
+      "Dez",
+    ];
+
+    contas.forEach((conta) => {
+      const [ano, mes] = conta.vencConta.split("-"); // 2025-07-01
+      const mesIndex = parseInt(mes, 10) - 1;
+      const monthBill = `${nomesMeses[mesIndex]}/${ano}`;
+
+      const hasMonthInList = mesesSelect.some((m) => m.label === monthBill);
+
+      if (!hasMonthInList) {
+        mesesSelect.push({ label: monthBill, content: `${ano}-${mes}` });
+      }
+    });
+
+    setMonthSelectOptions(Array.from(mesesSelect));
+  };
+
+  const handlerFilterBillsByMonth = () => {
+    const filterLabel =
+      monthSelected === "allMonths"
+        ? () => true
+        : (conta) => conta.vencConta.startsWith(monthSelected);
+
+    const contasFiltradas = contas.filter(filterLabel);
+
+    setContasExibicao(contasFiltradas);
+  };
+
+  useEffect(() => {
+    getMonths();
+  }, [contas]);
+
+  useEffect(() => {
+    handlerFilterBillsByMonth();
+  }, [contas, monthSelected]);
 
   const styles = StyleSheet.create({
     addNovaConta: {
@@ -54,22 +108,50 @@ const Relatorio = () => {
   return (
     <section className={style.container}>
       <h1 className={style.title}>Relatórios</h1>
+      <select
+        name="selectMonth"
+        id="selectMonth"
+        onChange={(e) => setMonthSelected(e.target.value)}
+        defaultValue="allMonths"
+      >
+        <option value="allMonths">Todos os meses</option>
+        {monthSelectOptions.map(({ label, content }) => (
+          <option key={content} value={content}>
+            {label}
+          </option>
+        ))}
+      </select>
+
       <p style={{ width: "100%" }}>
         <MyDocument
           valores="ok"
-          contas={contas}
-          total={formatCurrency(calcularTotalContas(contas, () => true))}
+          contas={contasExibicao}
+          total={formatCurrency(
+            calcularTotalContas(contasExibicao, (conta) =>
+              conta.vencConta.startsWith(monthSelected)
+            )
+          )}
           totalPagas={formatCurrency(
-            calcularTotalContas(contas, (conta) => conta.statusConta)
+            calcularTotalContas(
+              contasExibicao,
+              (conta) =>
+                conta.vencConta.startsWith(monthSelected) && conta.statusConta
+            )
           )}
           totalAPagar={formatCurrency(
-            calcularTotalContas(contas, (conta) => !conta.statusConta)
+            calcularTotalContas(
+              contasExibicao,
+              (conta) =>
+                conta.vencConta.startsWith(monthSelected) && !conta.statusConta
+            )
           )}
           totalVencidas={formatCurrency(
             calcularTotalContas(
-              contas,
+              contasExibicao,
               (conta) =>
-                conta.vencConta < new Date().getDate() && !conta.statusConta
+                conta.vencConta.startsWith(monthSelected) &&
+                new Date(conta.vencConta) < new Date() &&
+                !conta.statusConta
             )
           )}
         />
@@ -79,17 +161,19 @@ const Relatorio = () => {
         document={
           <MyDocument
             valores="ok"
-            contas={contas}
-            total={formatCurrency(calcularTotalContas(contas, () => true))}
+            contas={contasExibicao}
+            total={formatCurrency(
+              calcularTotalContas(contasExibicao, () => true)
+            )}
             totalPagas={formatCurrency(
-              calcularTotalContas(contas, (conta) => conta.statusConta)
+              calcularTotalContas(contasExibicao, (conta) => conta.statusConta)
             )}
             totalAPagar={formatCurrency(
-              calcularTotalContas(contas, (conta) => !conta.statusConta)
+              calcularTotalContas(contasExibicao, (conta) => !conta.statusConta)
             )}
             totalVencidas={formatCurrency(
               calcularTotalContas(
-                contas,
+                contasExibicao,
                 (conta) =>
                   conta.vencConta < new Date().getDate() && !conta.statusConta
               )
