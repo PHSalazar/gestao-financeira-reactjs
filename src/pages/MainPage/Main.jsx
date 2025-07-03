@@ -11,7 +11,7 @@ const Main = () => {
   const { contas } = useContext(UserContext);
   const [contasExibicao, setContasExibicao] = useState([]);
   const [monthSelectOptions, setMonthSelectOptions] = useState([]);
-  const [monthSelected, setMonthSelected] = useState("allMonths");
+  const [monthSelected, setMonthSelected] = useState();
 
   const getMonths = () => {
     const mesesSelect = [];
@@ -58,6 +58,11 @@ const Main = () => {
 
   useEffect(() => {
     getMonths();
+
+    const month = (new Date().getMonth() + 1).toString().padStart(2, "0");
+    const year = new Date().getFullYear();
+    const stringDate = `${year}-${month}`;
+    setMonthSelected(stringDate);
   }, [contas]);
 
   useEffect(() => {
@@ -71,7 +76,7 @@ const Main = () => {
           name="selectMonth"
           id="selectMonth"
           onChange={(e) => setMonthSelected(e.target.value)}
-          defaultValue="allMonths"
+          value={monthSelected}
           style={{
             padding: "8px",
             borderRadius: "10px",

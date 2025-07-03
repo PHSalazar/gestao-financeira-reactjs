@@ -10,6 +10,7 @@
   border-radius: 8px;
   padding-left: 18px;
 
+  &.active,
   &:hover {
     background: rgba(95, 156, 236, 0.2);
   }

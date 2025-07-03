@@ -1,12 +1,11 @@
-import style from "./Sidebar.module.css";
-import iconUser from "../../assets/iconUser.svg";
-import { Link } from "react-router-dom";
 import { useState } from "react";
+import { Link } from "react-router-dom";
+import iconUser from "../../assets/iconUser.svg";
 import { LinkElement } from "./LinkElement";
+import style from "./Sidebar.module.css";
 
-import iconMenu from "../../assets/iconsMenu/iconMenu.svg";
-import iconMenuHome from "../../assets/iconsMenu/iconHome.svg";
 import iconMenuGraph from "../../assets/iconsMenu/iconGraph.svg";
+import iconMenuHome from "../../assets/iconsMenu/iconHome.svg";
 
 const Sidebar = () => {
   const [linksMenu] = useState([
