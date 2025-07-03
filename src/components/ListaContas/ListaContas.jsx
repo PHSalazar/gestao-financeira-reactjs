@@ -29,7 +29,11 @@ const ListaContas = ({ contasExibicao }) => {
 
   const removerConta = (contaRemover) => {
     const contasRemovidas = contas.filter(
-      (conta) => conta.tituloConta !== contaRemover.tituloConta
+      (conta) =>
+        !(
+          conta.tituloConta === contaRemover.tituloConta &&
+          conta.vencConta === contaRemover.vencConta
+        )
     );
 
     setContas(contasRemovidas);
