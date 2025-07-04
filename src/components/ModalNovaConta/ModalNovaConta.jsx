@@ -85,12 +85,15 @@ const ModalNovaConta = ({
       novasContas.push(novaConta);
     }
 
-    if (editar == true) {
-      let contaProcuradaIndex = contas.findIndex(
-        (c) => c.tituloConta == dadosParaEditarConta.tituloConta
+    if (editar === true) {
+      const contasAtualizadas = contas.map((conta) =>
+        conta.tituloConta.toLowerCase() ===
+        dadosParaEditarConta.tituloConta.toLowerCase()
+          ? { ...novasContas[0] }
+          : conta
       );
-      contas[contaProcuradaIndex] = novasContas[0];
-      setContas(contas); // Atualizando todas as contas já cadastradas.
+
+      setContas(contasAtualizadas);
 
       toast.success(`${novasContas[0].tituloConta} atualizada com sucesso.`, {
         position: "top-right",
@@ -162,6 +165,7 @@ const ModalNovaConta = ({
                   name="repetMonthy"
                   id="repetMonthly"
                   onChange={(e) => setRepetMonthly(e.target.checked)}
+                  defaultChecked={editar}
                 />
                 <label htmlFor="repetMonthly" className={styles.legenda}>
                   Repetir mensalmente
@@ -185,7 +189,7 @@ const ModalNovaConta = ({
                   max={12}
                   required
                   placeholder="Número de meses que essa conta deve ser paga"
-                  defaultValue={editar ? dadosParaEditarConta.repetMonthky : 1}
+                  defaultValue={editar ? dadosParaEditarConta.repetFor : 1}
                   ref={inputRepet}
                 />
               </>

@@ -14,6 +14,7 @@ const App = () => {
 
   useEffect(() => {
     localStorage.setItem("contas-GestorDeContasAPagar", JSON.stringify(contas));
+    console.log("alterado", contas);
   }, [contas]);
 
   const calcularTotalContas = (contas, filtro) => {
